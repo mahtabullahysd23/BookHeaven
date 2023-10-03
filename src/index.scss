@@ -1,0 +1,87 @@
+$danger-color: #ff3d00;
+$success-color: #00e676;
+$warning-color: #ff9100;
+
+$white-color: #fff;
+$black-color: #24262B;
+$gray-color: #F5F5F5;
+$gray-dark-color: #dfdfdf;
+$gray-light-color: #e7e7e7;
+$gray-lighter-color: #eeeeee;
+$green-color: #0D775E; 
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:sans-serif;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+ul{
+    list-style: none;
+}
+
+button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+input{
+    border: none;
+    outline: none;
+}
+
+/* Custom Black-Orange-White Theme Scrollbar Styles */
+/* Webkit (Safari and Chrome) */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1f1f1f; /* Dark background color for track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #ff5722; /* Orange color for thumb */
+    border-radius: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ff6d42; /* Lighter orange color on hover */
+  }
+  
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #ff5722 #1f1f1f; /* Orange thumb on dark background */
+  }
+  
+  /* IE and Edge */
+  /* Note: Customizing scrollbar in IE and Edge is not as straightforward */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: $gray-dark-color
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background: $black-color;
+    border-radius: 6px;
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background:$black-color;
+  }

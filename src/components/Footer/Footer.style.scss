@@ -1,0 +1,31 @@
+/* Reset some default styles for the body and HTML elements */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the footer */
+.footer {
+    background-color: #333; /* Background color */
+    color: #fff; /* Text color */
+    padding: 20px 0; /* Padding at the top and bottom */
+    text-align: center; /* Center align the text */
+}
+
+/* Style the footer content */
+.footer-content {
+    max-width: 800px; /* Limit content width */
+    margin: 0 auto; /* Center align content horizontally */
+}
+
+/* Style the headings */
+h3 {
+    font-size: 1.5rem; /* Adjust heading font size */
+    margin-bottom: 10px; /* Add some space below the heading */
+}
+
+/* Style the paragraphs */
+p {
+    font-size: 1rem; /* Adjust paragraph font size */
+    margin: 5px 0; /* Add some space above and below paragraphs */
+}

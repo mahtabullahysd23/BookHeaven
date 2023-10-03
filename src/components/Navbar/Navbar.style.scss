@@ -1,0 +1,33 @@
+@import "../../index.scss";
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $white-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.3rem 4rem;
+  z-index: 1000;;
+  .navbar_logo {
+    font-size: 1rem;
+  }
+  .navbar_links ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20rem;
+    padding: 0 1rem;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .nav_icons ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 15rem;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}
