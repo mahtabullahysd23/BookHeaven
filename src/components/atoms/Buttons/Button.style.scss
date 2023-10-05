@@ -1,0 +1,11 @@
+@import'../../../index.scss';
+button[type="submit"] {
+    background-color: $black-color;
+    color: $white-color;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}

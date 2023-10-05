@@ -1,13 +1,15 @@
+
+
 $danger-color: #ff3d00;
 $success-color: #00e676;
 $warning-color: #ff9100;
 
 $white-color: #fff;
 $black-color: #24262B;
-$gray-color: #F5F5F5;
+$gray-color: #bababa;
 $gray-dark-color: #dfdfdf;
 $gray-light-color: #e7e7e7;
-$gray-lighter-color: #eeeeee;
+$gray-lighter-color: #f6f6f6;
 $green-color: #0D775E; 
 
 *{
@@ -17,7 +19,7 @@ $green-color: #0D775E;
 }
 
 body{
-    font-family:sans-serif;
+    font-family:'Segoe UI';
     background-color: #f5f5f5;
     overflow-x: hidden;
 }

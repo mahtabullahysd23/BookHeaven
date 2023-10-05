@@ -1,7 +1,7 @@
 import Navbar from "./components/organisms/NavbarOrganism/Navbar";
 import Signup from "./components/templates/Signup/Signup";
 import Signin from "./components/templates/Signin/Signin";
-import Footer from "./components/organisms/FooterOrganism/Footer";
+import Footer from "./components/organisms/FooterOrganism/FooterOrganism";
 import Home from "./components/templates/Home/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./components/templates/About/About";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/books" element={<Books/>} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </>
   );

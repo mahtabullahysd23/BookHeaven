@@ -1,11 +1,14 @@
-import React from "react";
 import SigninFormMolecules from "../../molecules/SigninFormMolecules/SigninFormMolecules";
+import "./SigninOrganism.style.scss";
 const SigninOrganism = () => {
   return (
     <>
       <div className="left-div">
         <div className="content">
           <div className="rounded-square"></div>
+          <div className="img-div">
+            <img src="../../../../public/Banner.png"></img>
+          </div>
         </div>
       </div>
       <div className="right-div">
