@@ -1,6 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
-import Features from "../Features/Features";
+import Features from "../../organisms/FeaturesBannerOrganism/FeaturesBanner";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import "./Signup.style.scss";

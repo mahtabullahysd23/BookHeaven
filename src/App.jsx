@@ -1,12 +1,12 @@
-import Navbar from "./components/Navbar/Navbar";
-import Signup from "./components/Signup/Signup";
-import Signin from "./components/Signin/Signin";
-import Footer from "./components/Footer/Footer";
-import Home from "./components/Home/Home";
+import Navbar from "./components/organisms/NavbarOrganism/Navbar";
+import Signup from "./components/templates/Signup/Signup";
+import Signin from "./components/templates/Signin/Signin";
+import Footer from "./components/organisms/FooterOrganism/Footer";
+import Home from "./components/templates/Home/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import About from "./components/About/About";
-import Contacts from "./components/Contacts/Contacts";
-import Books from "./components/Books/Books";
+import About from "./components/templates/About/About";
+import Contacts from "./components/templates/Contacts/Contacts";
+import Books from "./components/templates/Books/Books";
 
 function App() {
   return (
