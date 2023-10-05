@@ -1,11 +1,13 @@
+import "./SigninFormMolecules.style.scss";
 import { Link } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Checkbox from "../../atoms/Checkbox/Checkbox";
-import { BiShowAlt, BiHide } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormInput from "../../atoms/FormInput/FormInput";
 import Button from "../../atoms/Buttons/Button";
+import PasswordInput from "../../atoms/PasswordInput/PasswordInput";
+
 const SigninFormMolecules = () => {
   const {
     handleSubmit,
@@ -15,15 +17,7 @@ const SigninFormMolecules = () => {
   } = useForm({
     mode: "onChange",
   });
-
   const navigate = useNavigate();
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   const onSubmit = (data) => {
     navigate("/home");
     alert("You have successfully logged in");
@@ -32,7 +26,6 @@ const SigninFormMolecules = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-
       <FormInput
         labelText="Email"
         type="email"
@@ -47,36 +40,7 @@ const SigninFormMolecules = () => {
           },
         }}
       />
-
-
-      <div className="input-group">
-        <label htmlFor="password">Password</label>
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          rules={{ required: "Password is required" }}
-          render={({ field }) => (
-            <>
-              <div className="pass-field">
-                <input
-                  {...field}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                />
-                <div
-                  onClick={toggleShowPassword}
-                  className="show-password-button"
-                >
-                  {showPassword ? <BiHide /> : <BiShowAlt />}
-                </div>
-              </div>
-              <span className="error">*{errors.password?.message}</span>
-            </>
-          )}
-        />
-      </div>
-
+      <PasswordInput control={control} errors={errors}/>
       <div className="input-group-checkbox">
         <div>
           <Checkbox />
@@ -87,11 +51,7 @@ const SigninFormMolecules = () => {
           </Link>
         </div>
       </div>
-
-      <div className="input-group">
-        <Button type="submit" text="Login"/>
-      </div>
-
+      <Button type="submit" text="Login" />
     </form>
   );
 };
