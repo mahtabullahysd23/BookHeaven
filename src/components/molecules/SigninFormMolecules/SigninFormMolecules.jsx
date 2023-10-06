@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Checkbox from "../../atoms/Checkbox/Checkbox";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import FormInput from "../../atoms/FormInput/FormInput";
 import Button from "../../atoms/Buttons/Button";
 import PasswordInput from "../../atoms/PasswordInput/PasswordInput";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../../Store/Slices/userSlice";
 
 const SigninFormMolecules = () => {
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     control,
@@ -21,6 +23,7 @@ const SigninFormMolecules = () => {
   const onSubmit = (data) => {
     navigate("/home");
     alert("You have successfully logged in");
+    dispatch(addUser(data));
     console.log(data);
     reset();
   };
