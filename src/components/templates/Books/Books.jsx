@@ -1,11 +1,22 @@
-import React from 'react'
+import React from "react";
+import BooksOrganism from "../../organisms/BooksOrganism/BooksOrganism";
+import FeaturesBanner from "../../organisms/FeaturesBannerOrganism/FeaturesBanner";
+import "./Books.style.scss";
 
 const Books = () => {
   return (
-    <div className="container">
-        <h1 style={{ marginTop: "150px", marginBottom: "150px" }}>All Books</h1>
+    <>
+    <div className="book-page-container">
+      <div className="books-left">
       </div>
-  )
-}
+      <div className="books-right">
+        <BooksOrganism />
+      </div>
+    </div>
+    <FeaturesBanner />
+    </>
+    
+  );
+};
 
-export default Books
+export default Books;

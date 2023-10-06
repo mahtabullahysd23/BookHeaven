@@ -1,0 +1,33 @@
+@import '../../../index.scss';
+.card {
+    display: flex;
+    flex-direction: column;
+    max-width: max-content; /* You can adjust the maximum width as needed */
+    margin: 0 auto; /* Center the card horizontally */
+    position: relative;
+    box-shadow: rgba(9, 30, 66, 0.151) 0px 1px 1px, rgba(9, 30, 66, 0.137) 0px 0px 1px 1px;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card-div{
+    text-align: center;
+    background-color: $white-color;
+    padding: 10px;
+}
+
+h3 {
+    margin: 0;
+}
+
+.header-card{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
