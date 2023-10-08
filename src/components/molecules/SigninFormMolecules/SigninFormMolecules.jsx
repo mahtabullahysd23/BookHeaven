@@ -8,25 +8,13 @@ import Button from "../../atoms/Buttons/Button";
 import PasswordInput from "../../atoms/PasswordInput/PasswordInput";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../Store/Slices/userSlice";
+import customAxios from "../../../Utils/customAxios";
+import useLogin from "../../../CustomHooks/useLogin";
 
 const SigninFormMolecules = () => {
-  const dispatch = useDispatch();
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm({
-    mode: "onChange",
-  });
-  const navigate = useNavigate();
-  const onSubmit = (data) => {
-    navigate("/home");
-    alert("You have successfully logged in");
-    dispatch(addUser(data));
-    console.log(data);
-    reset();
-  };
+
+  const { control,handleSubmit,errors,onSubmit} = useLogin();
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
