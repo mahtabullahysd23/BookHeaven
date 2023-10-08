@@ -1,8 +1,21 @@
-import React from 'react'
-
-const Button = ({type,text}) => {
+// Desc: Button component
+import "./Button.style.scss";
+const Button = ({ type, text, onClick, className }) => {
+  const handleClick = () => {
+    onClick();
+  };
   return (
-    <button type={type}>{text}</button>
-  )
-}
-export default Button
+    <>
+      {type != "submit" ? (
+        <button className={`${className} button-base `} onClick={handleClick}>
+          {text}
+        </button>
+      ) : (
+        <div className="input-group">
+          <button className="button-base" type="submit">{text}</button>
+        </div>
+      )}
+    </>
+  );
+};
+export default Button;

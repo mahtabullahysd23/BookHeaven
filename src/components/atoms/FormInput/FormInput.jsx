@@ -1,3 +1,4 @@
+import './FormInput.style.scss'
 import { Controller } from "react-hook-form";
 const FormInput = ({labelText,type,name,control,errors,rules}) => {
   return (
@@ -7,6 +8,7 @@ const FormInput = ({labelText,type,name,control,errors,rules}) => {
         name={name}
         control={control}
         rules={rules}
+        defaultValue=""
         render={({ field }) => (
           <>
             <input
@@ -15,7 +17,7 @@ const FormInput = ({labelText,type,name,control,errors,rules}) => {
               id={name}
               placeholder={`Enter your ${labelText}`}
             />
-            <span className="error">*{errors.email?.message}</span>
+            <span className="error">*{errors[name]?.message}</span>
           </>
         )}
       />

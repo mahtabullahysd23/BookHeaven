@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.3rem 4rem;
-  z-index: 1000;;
+  z-index: 1000;
   .navbar_logo {
     font-size: 1rem;
   }
@@ -26,8 +26,33 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 15rem;
+    width: 12rem;
     font-size: 14px;
     letter-spacing: 1px;
+    gap: 1rem;
   }
+}
+
+.active {
+  color: $green-color;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.nav-icon-div {
+  font-size: 17px;
+}
+
+.nav-icon-div:hover {
+  color: $green-color;
+  cursor: pointer;
+}
+
+.sign-in-up {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  width: 12rem;
 }
