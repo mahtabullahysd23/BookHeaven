@@ -45,9 +45,9 @@ const PasswordInput = ({ control, errors, text,watch }) => {
     </div>
   ) : (
     <div className="input-group">
-      <label htmlFor="confirmPassword">Confirm Password</label>
+      <label htmlFor="cpassword">Confirm Password</label>
       <Controller
-        name="confirmPassword"
+        name="cpassword"
         control={control}
         defaultValue=""
         rules={{
@@ -74,7 +74,7 @@ const PasswordInput = ({ control, errors, text,watch }) => {
                 {showConfirmPassword ? <BiShowAlt /> : <BiHide />}
               </div>
             </div>
-            <span className="error">*{errors.confirmPassword?.message}</span>
+            <span className="error">*{errors.cpassword?.message}</span>
           </>
         )}
       />
