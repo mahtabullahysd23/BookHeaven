@@ -1,10 +1,12 @@
 import React from "react";
 import FooterMolecule from "../../molecules/FooterMolecule/FooterMolecule";
 import "./FooterOrganism.style.scss";
+import FeaturesBanner from "../FeaturesBannerOrganism/FeaturesBanner";
 
 function Footer() {
   return (
     <>
+      <FeaturesBanner />
       <div className="footer-container">
         <div className="address-div">
           <h2 style={{ marginBottom: "1rem" }}>BookHeaven</h2>

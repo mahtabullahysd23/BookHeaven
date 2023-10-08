@@ -7,12 +7,12 @@ const Button = ({ type, text, onClick, className }) => {
   return (
     <>
       {type != "submit" ? (
-        <button className={className} onClick={handleClick}>
+        <button className={`${className} button-base `} onClick={handleClick}>
           {text}
         </button>
       ) : (
         <div className="input-group">
-          <button type="submit">{text}</button>
+          <button className="button-base" type="submit">{text}</button>
         </div>
       )}
     </>

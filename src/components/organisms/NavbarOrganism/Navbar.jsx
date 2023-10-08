@@ -3,11 +3,25 @@ import { SlBasket } from "react-icons/sl";
 import { SlHeart } from "react-icons/sl";
 import { SlMagnifier } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal, closeModal } from "../../../Store/Slices/modalSlice";
+import SideModal from "../../atoms/SideModal/SideModal";
+import CartItemOrganism from "../CartItemOrganism/CartItemOrganism";
 
 const Navbar = () => {
   const token = localStorage.getItem("token");
+
+  const dispatch = useDispatch();
+  const isSideModalOpen = useSelector((state) => state.modal.cartModal);
+  const handleClickOpenModal = () => {
+    dispatch(openModal("cartModal"));
+  }
+  const closeSideModal = () => {
+    dispatch(closeModal("cartModal"));
+  }
   return (
-    <div className="navbar">
+  <>
+   <div className="navbar">
       <div className="navbar_logo">
         {/* <img style={{
                 height: '50px',
@@ -17,22 +31,22 @@ const Navbar = () => {
       <div className="navbar_links">
         <ul>
           <li>
-            <NavLink activeClassName="active" to="/">
+            <NavLink activeclassname="active" to="/">
               HOME
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName="active" to="/books">
+            <NavLink activeclassname="active" to="/books">
               BOOKS
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName="active" to="/about">
+            <NavLink activeclassname="active" to="/about">
               ABOUT
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName="active" to="/contact">
+            <NavLink activeclassname="active" to="/contact">
               CONTACT
             </NavLink>
           </li>
@@ -43,12 +57,12 @@ const Navbar = () => {
           {!token ? (
             <>
               <li>
-                <NavLink activeClassName="active" to="/signin">
+                <NavLink activeclassname="active" to="/signin">
                   SIGN IN
                 </NavLink>
               </li>
               <li>
-                <NavLink activeClassName="active" to="/signup">
+                <NavLink activeclassname="active" to="/signup">
                   SIGN UP
                 </NavLink>
               </li>
@@ -57,23 +71,22 @@ const Navbar = () => {
             <></>
           )}
           <li>
-            <NavLink activeClassName="active" to="/search">
-              <SlMagnifier />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active" to="/wishlist">
+          <div className="nav-icon-div" onClick={handleClickOpenModal}>
               <SlHeart />
-            </NavLink>
+            </div>
           </li>
           <li>
-            <NavLink activeClassName="active" to="/cart">
+            <div className="nav-icon-div" onClick={handleClickOpenModal}>
               <SlBasket />
-            </NavLink>
+            </div>
           </li>
         </ul>
       </div>
     </div>
+    <SideModal isOpen={isSideModalOpen} onClose={closeSideModal}>
+    <CartItemOrganism />
+  </SideModal>
+  </>
   );
 };
 

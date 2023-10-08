@@ -46,7 +46,7 @@ const SigninFormMolecules = () => {
       <PasswordInput control={control} errors={errors}/>
       <div className="input-group-checkbox">
         <div>
-          <Checkbox />
+          <Checkbox text="Remember me" display="flex"/>
         </div>
         <div>
           <Link to="/">

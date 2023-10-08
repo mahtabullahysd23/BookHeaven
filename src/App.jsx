@@ -7,23 +7,33 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./components/templates/About/About";
 import Contacts from "./components/templates/Contacts/Contacts";
 import Books from "./components/templates/Books/Books";
-
+import Checkout from "./components/templates/Checkout/Checkout";
+import "./App.scss";
 function App() {
   return (
     <>
       <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/contact" element={<Contacts/>} />
-          <Route path="/books" element={<Books/>} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
-        </Routes>
-        <Footer />
+        <div className="app-container">
+          <div className="app-nav-container">
+            <Navbar />
+          </div>
+          <div className="app-middle-container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/signin" element={<Signin />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contacts />} />
+              <Route path="/books" element={<Books />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="*" element={<h1>404 Not Found</h1>} />
+            </Routes>
+          </div>
+          <div className="app-footer-container">
+            <Footer />
+          </div>
+        </div>
       </Router>
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react'
 import './Tag.style.scss'
 const Tag = ({text,color}) => {
   return (
-    <div style={{backgroundColor:color}} className= "tag"><p>{text}</p></div>
+    <div className= {`tag ${color}`} ><p>{text}</p></div>
   )
 }
 

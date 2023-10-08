@@ -1,4 +1,3 @@
-import FeaturesBanner from "../../organisms/FeaturesBannerOrganism/FeaturesBanner";
 import SigninOrganism from "../../organisms/SigninOrganism/SigninOrganism";
 import "./Signin.style.scss";
 const Signin = () => {
@@ -7,7 +6,6 @@ const Signin = () => {
       <div className="container-main">
         <SigninOrganism/> 
       </div>
-      <FeaturesBanner />
     </>
   );
 };
