@@ -7,21 +7,28 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "../../../Store/Slices/modalSlice";
 import customAxios from "../../../Utils/customAxios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { addNumberOfItems } from "../../../Store/Slices/cartSlice";
 
 const CartItemOrganism = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [books, setBooks] = useState([]);
 
+  const booksinCart = useSelector((state) => state.cart.cart.cart_total);
 
   useEffect(() => {
-    customAxios.get("/cart/view").then((res) => {
-      setBooks(res.data.data.books);
-      console.log(res.data.data);
-    }).catch((err) => {
-      setBooks([]);
-    });
-  }, []);
+    customAxios
+      .get("/cart/view").then((res) => {
+        setBooks(res.data.data);
+        dispatch(addNumberOfItems(res.data.data.books.length));
+      })
+      .catch((err) => {
+        setBooks([]);
+        console.log("cart empty");
+      });
+    console.log("re-loaded");
+  }, [booksinCart]);
 
   return (
     <div className="cart-side-modal">
@@ -31,18 +38,25 @@ const CartItemOrganism = () => {
       <div className="flex-column-between h-75 gap-3 ">
         <div className="w-100">
           <div className="Item-list">
-            {books&&books.map((book,index) => (
-              <CartItemMolecule
-                key={index}
-                product_name="dsdfsdf"
-                
-                price="sdfsdf"
-              />
-            ))}
+            {books.books ? (
+              books.books.map((book) => (
+                <CartItemMolecule
+                  key={book.book._id}
+                  id={book.book._id}
+                  product_name={book.book.name}
+                  price={book.Item_total}
+                  imageUrl={book.book.imageUrl}
+                  quantity={book.quantity} 
+                  stock={book.book.stock} 
+                />
+              ))
+            ) : (
+              <h3 className="flex-center mt-2 mb-2">No items in cart</h3>
+            )}
           </div>
           <div className="flex-between mt-1 ">
             <h3>Subtotal:</h3>
-            <h3>$56235</h3>
+            <h3>{books.cart_total ? books.cart_total : 0}</h3>
           </div>
         </div>
         <div className="w-100">
@@ -52,7 +66,7 @@ const CartItemOrganism = () => {
               text="Checkout"
               onClick={() => {
                 navigate("/checkout");
-                dispatch(closeModal('cartModal'));
+                dispatch(closeModal("cartModal"));
               }}
             />
             <Button

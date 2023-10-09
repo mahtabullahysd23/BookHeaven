@@ -6,7 +6,7 @@ const RedDot = ({ count }) => {
     <>
       {count > 0 && (
         <div className="red-dot">
-          {count > 99 ? '99+' : count}
+          <p>{count > 99 ? '99+' : count}</p>
         </div>
       )}
     </>
