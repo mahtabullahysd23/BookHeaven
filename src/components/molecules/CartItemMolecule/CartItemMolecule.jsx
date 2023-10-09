@@ -7,23 +7,23 @@ const handleOnChange = (value) => {
   console.log(value);
 };
 
-const CartItemMolecule = () => {
+const CartItemMolecule = ( {product_name,imgUrl,price}) => {
   return (
     <div className="cart-item">
       <div className="cart-item-image">
-        <img src="04.jpg" alt="product" />
+        <img src={imgUrl} alt="product" />
       </div>
       <div className="cart-item-details">
         <div>
-          <p>Product Name</p>
+          <p>{product_name}</p>
           <div className="cart-item-quantity-price">
             <Quantity
               initialValue={1}
               min={1}
-              max={10}
+              max={100}
               onChange={handleOnChange}
             />
-            <h3>$400</h3>
+            <h3>{price}</h3>
           </div>
         </div>
         <div>

@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import './Search.style.scss';
-import {SlMagnifier} from 'react-icons/sl'
+import React, { useState } from "react";
+import "./Search.style.scss";
+import { SlMagnifier } from "react-icons/sl";
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+const Search = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
+    setSearchTerm(()=>e.target.value);
+    onSearch(e.target.value);
   };
 
   return (
     <div className="search-container">
       <div className="search-icon">
-      <SlMagnifier/>
+        <SlMagnifier />
       </div>
       <input
         type="text"
