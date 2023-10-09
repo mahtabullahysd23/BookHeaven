@@ -9,21 +9,45 @@ import CartItemOrganism from "../CartItemOrganism/CartItemOrganism";
 import { useEffect, useState } from "react";
 import ProfileName from "../../molecules/ProfileNameMolecule/ProfileNameMolecule";
 import jwtDecode from "jwt-decode";
+import RedDot from "../../atoms/CountDot/CountDot";
+import customAxios from "../../../Utils/customAxios";
 
 const Navbar = () => {
   const email = useSelector((state) => state.user.email);
   const [token, setToken] = useState("");
   const [user, setUser] = useState(null);
+  const [itemCount, setItemCount] = useState(0);
+  const [cart, setCart] = useState();
 
   useEffect(() => {
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
       setUser(jwtDecode(localStorage.getItem("token")));
       setToken(localStorage.getItem("token"));
-    }
-    else{
+    } else {
       setToken("");
     }
+    customAxios
+      .get("/cart/view")
+      .then((res) => {
+        setCart(res.data.data);
+        setItemCount(res.data.books.length);
+      })
+      .catch((err) => {
+        setCart([]);
+      });
   }, [email]);
+
+  useEffect(() => {
+    customAxios
+      .get("/cart/view")
+      .then((res) => {
+        setCart(res.data.data);
+        setItemCount(res.data.data.books.length);
+      })
+      .catch((err) => {
+        setCart([]);
+      });
+  },[]);
 
   const dispatch = useDispatch();
   const isSideModalOpen = useSelector((state) => state.modal.cartModal);
@@ -98,7 +122,10 @@ const Navbar = () => {
                 </li>
                 <li>
                   <div className="nav-icon-div" onClick={handleClickOpenModal}>
-                    <SlBasket />
+                    <div className="cart-icon">
+                      <SlBasket />
+                      <RedDot count={itemCount} />
+                    </div>
                   </div>
                 </li>
               </>
