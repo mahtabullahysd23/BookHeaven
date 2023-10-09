@@ -6,20 +6,36 @@ import { BsFillCartPlusFill } from "react-icons/bs";
 import { RiHeart2Fill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../Store/Slices/modalSlice";
+import { addToCart } from "../../../Store/Slices/cartSlice";
+import customAxios from "../../../Utils/customAxios";
 
 const CardMolecule = ({
+  id,
   name,
   author,
   price,
   rating,
   discount,
-  category,
+  tag,
   imgUrl,
 }) => {
 
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(openModal("eyeModal"))
+  }
+
+  const handleClickAddtoCart = () => {
+    customAxios.post("/cart/add",{
+      "book": id,
+      "quantity": 1
+    }).then((res) => {
+      alert(res.data.message);
+      dispatch(addToCart(res.data.data));
+    })
+    .catch((err) => {
+      alert(err.response.data.message)
+    })  
   }
 
   return (
@@ -31,13 +47,13 @@ const CardMolecule = ({
         <div className="icon-button">
           <RiHeart2Fill />
         </div>
-        <div className="icon-button">
+        <div className="icon-button" onClick={handleClickAddtoCart}>
           <BsFillCartPlusFill />
         </div>
       </div>
       <div className="header-card">
         <Tag text={discount} color="black" />
-        <Tag text={category} color="green" />
+        <Tag text={tag} color="green" />
       </div>
       <img
         style={{ height: "auto" }}

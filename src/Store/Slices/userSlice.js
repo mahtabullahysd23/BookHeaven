@@ -12,7 +12,7 @@ const Slice = createSlice({
             state.email = action.payload.email;
         },
         deleteUser: (state, action) => {
-            state.email = "";
+            state.email = "logged out";
         },
     },
 });

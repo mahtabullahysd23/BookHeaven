@@ -15,8 +15,7 @@ const SingleProductMolecule = () => {
       </div>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque tenetur
-        ab, consectetur sint ipsam illum id, molestias deleniti odio omnis,
-        quasi adipisci aliquam corrupti veniam? Ab a laborum obcaecati eius.
+        ab.
       </p>
       <div className="price-quantity">
         <div className="price-single-product">

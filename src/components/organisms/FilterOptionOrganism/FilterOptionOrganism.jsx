@@ -4,17 +4,26 @@ import Search from "../../atoms/Search/Search";
 import RangeSlider from "../../atoms/RangeSlider/RangeSlider";
 import "./FilterOptionOrganism.style.scss";
 import FilterOptionsMolecule from "../../molecules/FilterOptionsMolecule/FilterOptionsMolecule";
+import { useDispatch } from "react-redux";
+import { addFilter } from "../../../Store/Slices/filterSlice";
 
 const FilterOptionOrganism = () => {
+
+  const dispatch = useDispatch();
   const minRangeValue = 200;
   const maxRangeValue = 8000;
   const step = 10;
   const handleRangeChange = (newRange) => {
     console.log(newRange);
   };
+
+  const handleSearch = (searchTerm) => {
+    dispatch(addFilter(searchTerm));
+  }
+
   return (
     <div className="filter-option">
-      <Search />
+      <Search onSearch={handleSearch}/>
       <div className="price-range">
         <p>Price range</p>
         <RangeSlider

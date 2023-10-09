@@ -7,7 +7,8 @@ import FilterOptionOrganism from "../../organisms/FilterOptionOrganism/FilterOpt
 import Modal from "../../atoms/Modal/Modal";
 import SingleProuctOrganism from "../../organisms/SingleProuctOrganism/SingleProuctOrganism";
 import { useSelector ,useDispatch} from "react-redux";
-import { closeModal } from "../../../Store/Slices/modalSlice";    
+import { closeModal } from "../../../Store/Slices/modalSlice";  
+  
 
 const Books = () => {
   const dispatch = useDispatch();
