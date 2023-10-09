@@ -8,11 +8,12 @@ import { useDispatch } from "react-redux";
 import { openModal } from "../../../Store/Slices/modalSlice";
 import { addToCart } from "../../../Store/Slices/cartSlice";
 import customAxios from "../../../Utils/customAxios";
+import { addSingleBook } from "../../../Store/Slices/bookSlice";
+
 
 const CardMolecule = ({
   id,
   name,
-  author,
   price,
   rating,
   discount,
@@ -21,53 +22,63 @@ const CardMolecule = ({
 }) => {
 
   const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(openModal("eyeModal"))
-  }
 
   const handleClickAddtoCart = () => {
-    customAxios.post("/cart/add",{
-      "book": id,
-      "quantity": 1
-    }).then((res) => {
-      alert(res.data.message);
-      dispatch(addToCart(res.data.data));
-    })
-    .catch((err) => {
-      alert(err.response.data.message)
-    })  
-  }
+    customAxios
+      .post("/cart/add", {
+        book: id,
+        quantity: 1,
+      })
+      .then((res) => {
+        dispatch(addToCart(res.data.data));
+        alert(res.data.message);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  };
+
+  const handleClickQuickView = () => {
+    customAxios.get(`/books/${id}`).then((res) => {
+      dispatch(addSingleBook(res.data.data));
+    });
+    dispatch(openModal("eyeModal"));
+  };
+
 
   return (
-    <div className="card">
-      <div className="icon-button-group">
-        <div onClick={handleClick} className="icon-button">
-        <FaEye/>
+    <>
+      <div className="card">
+        <div className="icon-button-group">
+          <div className="icon-button" onClick={handleClickQuickView}>
+            <FaEye />
+          </div>
+          <div className="icon-button">
+            <RiHeart2Fill />
+          </div>
+          <div className="icon-button" onClick={handleClickAddtoCart}>
+            <BsFillCartPlusFill />
+          </div>
         </div>
-        <div className="icon-button">
-          <RiHeart2Fill />
+        <div className="header-card">
+          <Tag text={discount} color="black" />
+          <Tag text={tag} color="green" />
         </div>
-        <div className="icon-button" onClick={handleClickAddtoCart}>
-          <BsFillCartPlusFill />
+        <img
+          style={{ height: "auto" }}
+          src={imgUrl ? imgUrl : "https://picsum.photos/200/300"}
+          alt={name}
+        />
+        <div className="card-div">
+          <h3>{name}</h3>
+          <div className="rating-card-view">
+            <DisplayRating />
+          </div>
+          <p>{price}</p>
         </div>
       </div>
-      <div className="header-card">
-        <Tag text={discount} color="black" />
-        <Tag text={tag} color="green" />
-      </div>
-      <img
-        style={{ height: "auto" }}
-        src={imgUrl ? imgUrl : "https://picsum.photos/200/300"}
-        alt={name}
-      />
-      <div className="card-div">
-        <h3>{name}</h3>
-        <div className="rating-card-view">
-          <DisplayRating />
-        </div>
-        <p>{price}</p>
-      </div>
-    </div>
+      
+    </>
   );
 };
 

@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import './Quantity.style.scss';
+import React, { useState } from "react";
+import "./Quantity.style.scss";
+import { useEffect } from "react";
 
 const Quantity = ({ initialValue, min, max, onChange }) => {
   const [quantity, setQuantity] = useState(initialValue);
+
+  useEffect(() => {
+    setQuantity(initialValue);
+  }, [initialValue]);
 
   const handleIncrement = () => {
     if (quantity < max) {
       setQuantity(quantity + 1);
       onChange(quantity + 1);
+    } else {
+      alert("Not Enough Stock");
     }
   };
 
@@ -15,6 +22,8 @@ const Quantity = ({ initialValue, min, max, onChange }) => {
     if (quantity > min) {
       setQuantity(quantity - 1);
       onChange(quantity - 1);
+    } else {
+      alert("Minimum Quantity Reached");
     }
   };
 
@@ -22,7 +31,7 @@ const Quantity = ({ initialValue, min, max, onChange }) => {
     const newQuantity = parseInt(event.target.value, 10);
     if (!isNaN(newQuantity) && newQuantity >= min && newQuantity <= max) {
       setQuantity(newQuantity);
-      onChange(newQuantity);
+        onChange(newQuantity);
     }
   };
 

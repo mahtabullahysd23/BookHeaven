@@ -6,8 +6,8 @@ import FilterHeaderOrganism from "../../organisms/FilterHeaderOrganism/FilterHea
 import FilterOptionOrganism from "../../organisms/FilterOptionOrganism/FilterOptionOrganism";
 import Modal from "../../atoms/Modal/Modal";
 import SingleProuctOrganism from "../../organisms/SingleProuctOrganism/SingleProuctOrganism";
-import { useSelector ,useDispatch} from "react-redux";
-import { closeModal } from "../../../Store/Slices/modalSlice";  
+import { useSelector,useDispatch } from "react-redux";
+import { closeModal } from "../../../Store/Slices/modalSlice";
   
 
 const Books = () => {
@@ -34,7 +34,7 @@ const Books = () => {
       <PaginationOrganism />
       <div>
       <Modal isOpen={isModalOpen} onClose={modalClose}>
-        <SingleProuctOrganism />  
+        <SingleProuctOrganism />
       </Modal>
     </div>
     </>
