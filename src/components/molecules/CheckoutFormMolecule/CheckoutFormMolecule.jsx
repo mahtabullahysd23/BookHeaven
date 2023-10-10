@@ -45,6 +45,7 @@ const CheckoutFormMolecule = ({ control, errors }) => {
           name="streetAddress"
           control={control}
           errors={errors}
+          defaultValue=""
           rules={{
             required: "Street Address is required",
             maxLength: {
@@ -58,6 +59,7 @@ const CheckoutFormMolecule = ({ control, errors }) => {
           labelText="City"
           type="text"
           name="city"
+          defaultValue=""
           control={control}
           errors={errors}
           rules={{
@@ -73,6 +75,7 @@ const CheckoutFormMolecule = ({ control, errors }) => {
           labelText="Zip Code"
           type="number"
           name="zipCode"
+          defaultValue=""
           control={control}
           errors={errors}
           rules={{

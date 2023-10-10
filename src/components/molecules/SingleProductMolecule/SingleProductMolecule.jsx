@@ -8,9 +8,10 @@ import { useState } from "react";
 import customAxios from "../../../Utils/customAxios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../Store/Slices/cartSlice";
+import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
 const SingleProductMolecule = ({ singlebook }) => {
   const dispatch = useDispatch();
-
+  const [loadingAddtoCart, setLoadingAddtoCart] = useState(false);
   const [value, setValue] = useState(1);
 
   const HandleQuantity = (value) => {
@@ -19,7 +20,7 @@ const SingleProductMolecule = ({ singlebook }) => {
   };
 
   const handleAddToCart = () => {
-
+    setLoadingAddtoCart(true);
     customAxios
       .post("/cart/add", {
         book: singlebook._id,
@@ -28,11 +29,12 @@ const SingleProductMolecule = ({ singlebook }) => {
       .then((res) => {
         dispatch(addToCart(res.data.data));
         alert(res.data.message);
+        setLoadingAddtoCart(false);
       })
       .catch((err) => {
         alert(err.response.data.message);
+        setLoadingAddtoCart(false);
       });
-   
   };
 
   return (
@@ -42,7 +44,7 @@ const SingleProductMolecule = ({ singlebook }) => {
       <div className="rating-single-product">
         <DisplayRating rating={singlebook.rating} />
         <p>
-          {`${singlebook.rating} Rating (${singlebook.reviews.length}) Customer reviews`}{" "}
+          {`${singlebook.rating} Rating (${singlebook.reviews.length} Customer reviews)`}{" "}
         </p>
       </div>
       <p>{singlebook.description}</p>
@@ -62,12 +64,16 @@ const SingleProductMolecule = ({ singlebook }) => {
         </div>
       </div>
       <div className="btn-group-single-prouct">
-        <Button
-          text="Add To Cart"
-          className="black-button"
-          onClick={handleAddToCart}
-        />
-        <Button text="Add To WishList" className="ash-button" />
+        {loadingAddtoCart ? (
+          <Button  className="black-button w-100" disabled={true} text={<LinearLoader />} />
+        ) : (
+          <Button
+            text="Add To Cart"
+            className="black-button w-100"
+            onClick={handleAddToCart}
+          />
+        )}
+        <Button text="Add To WishList" className="ash-button  w-100" />
       </div>
 
       <div className="product-info">

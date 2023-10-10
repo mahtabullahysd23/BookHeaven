@@ -10,17 +10,19 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../../../Store/Slices/userSlice";
 import customAxios from "../../../Utils/customAxios";
 import useLogin from "../../../CustomHooks/useLogin";
+import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
+import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
 
 const SigninFormMolecules = () => {
 
-  const { control,handleSubmit,errors,onSubmit} = useLogin();
-
+  const { control,handleSubmit,errors,onSubmit,loading} = useLogin();
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         labelText="Email"
         type="email"
         name="email"
+        defaultValue={""}
         control={control}
         errors={errors}
         rules={{
@@ -42,7 +44,10 @@ const SigninFormMolecules = () => {
           </Link>
         </div>
       </div>
-      <Button type="submit" text="Login" />
+      {
+          loading ?<Button type="submit" disabled={true} text={<LinearLoader/>} />:<Button type="submit" text="Login" />
+      }
+      
     </form>
   );
 };

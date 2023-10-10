@@ -12,9 +12,14 @@ import customAxios from "../../../Utils/customAxios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addNumberOfItems, addToCart } from "../../../Store/Slices/cartSlice";
+import Loadder from "../../atoms/Loadder/Loadder";
+import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
+import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
 
 const CheckoutOrganism = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
   const {
     handleSubmit,
     control,
@@ -26,10 +31,13 @@ const CheckoutOrganism = () => {
   const [books, setBooks] = useState([]);
   const [currentBalance, setCurrentBalance] = useState(1000);
   const navigate = useNavigate();
+
   const onSubmit = (data) => {
+    setLoadingCheckout(true);
     customAxios
       .post("/transaction/checkout", data)
       .then((res) => {
+        setLoadingCheckout(false);
         alert("Order Placed Successfully");
         navigate("/books");
         reset();
@@ -41,19 +49,23 @@ const CheckoutOrganism = () => {
         dispatch(addNumberOfItems(0));
       })
       .catch((err) => {
-        alert(err.response.message);
+        alert(err.response.data.message);
+        setLoadingCheckout(false);
       });
   };
 
   const booksinCart = useSelector((state) => state.cart.cart.cart_total);
   useEffect(() => {
+    setLoading(true);
     customAxios
       .get("/cart/view")
       .then((res) => {
         setBooks(res.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         setBooks([]);
+        setLoading(false);
       });
   }, [booksinCart]);
 
@@ -66,7 +78,7 @@ const CheckoutOrganism = () => {
       <div className="checkout-right-div w-100">
         <h3>Your Order</h3>
         <div className="checkout-items">
-          {books.books ? (
+          {books.books && !loading ? (
             books.books.map((book) => (
               <CheckoutItemMolecule
                 key={book.book._id}
@@ -78,7 +90,7 @@ const CheckoutOrganism = () => {
             ))
           ) : (
             <div className="flex-center pt-2 ">
-              <h3>No items for checkout</h3>
+              {loading ? <RoundLoader color="blackClass" /> : <h3>No items in cart</h3>}
             </div>
           )}
           <div className="checkout-total flex-between mt-1">
@@ -118,7 +130,7 @@ const CheckoutOrganism = () => {
               checked="false"
             />
           </div>
-          <Button text="Place Order" type="submit" />
+          {loadingCheckout ?<Button type="submit" disabled={true} text={<LinearLoader/>} />:<Button type="submit" text="Place Order" />}
         </div>
       </div>
     </form>

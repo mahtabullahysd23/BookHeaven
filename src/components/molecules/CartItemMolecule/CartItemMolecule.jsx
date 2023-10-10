@@ -3,10 +3,12 @@ import "./CartItemMolecule.style.scss";
 import Quantity from "../../atoms/Quantity/Quantity";
 import CrossButton from "../../atoms/CrossButton/CrossButton";
 import customAxios from "../../../Utils/customAxios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../../Store/Slices/cartSlice";
 import { useEffect } from "react";
 import { useState } from "react";
+import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
+import { set } from "react-hook-form";
 
 const CartItemMolecule = ({
   id,
@@ -16,13 +18,17 @@ const CartItemMolecule = ({
   quantity,
   stock,
 }) => {
-
+  const [loading, setLoading] = useState(false);
+  const [loadingCross, setLoadingCross] = useState(false);
   const [value, setValue] = useState(quantity);
   const dispatch = useDispatch();
 
-  const handlecross = () => {
-    setValue(0);
-  };
+  useEffect(() => {
+    setLoading(false);
+    setLoadingCross(false);
+  }, [price]);
+
+ 
   const callApi = (value, id, quantity) => {
     if (value > quantity) {
       const newvalueadd = value - quantity;
@@ -72,6 +78,11 @@ const CartItemMolecule = ({
 
   const handleOnChange = (value) => {
     setValue(value);
+    setLoading(true);
+  };
+  const handlecross = () => {
+    setValue(0);
+    setLoadingCross(true);
   };
   return (
     <div className="cart-item">
@@ -79,7 +90,6 @@ const CartItemMolecule = ({
         <img src={imageUrl} alt="product" />
       </div>
       <div className="cart-item-details">
-        {console.log(imageUrl)}
         <div>
           <p>{product_name}</p>
           <div className="cart-item-quantity-price">
@@ -89,11 +99,11 @@ const CartItemMolecule = ({
               max={stock}
               onChange={handleOnChange}
             />
-            <h3>{price}</h3>
+            {loading ? <RoundLoader color="blackClass" /> : <h3>{price}</h3>}
           </div>
         </div>
         <div>
-          <CrossButton onClick={handlecross} />
+          {!loadingCross ?  <CrossButton onClick={handlecross} /> : <RoundLoader color="blackClass" />}
         </div>
       </div>
     </div>

@@ -18,7 +18,6 @@ const Navbar = () => {
   const [itemCount, setItemCount] = useState(0);
 
   const numOfbooks = useSelector((state) => state.cart.numberOfItems);
-  
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -41,10 +40,12 @@ const Navbar = () => {
     <>
       <div className="navbar">
         <div className="navbar_logo">
-          {/* <img style={{
-                height: '50px',
-            }} src ="../../../../public/logo.png"></img> */}
-          <h1>BookHeaven</h1>
+          <img
+            style={{
+              height: "71px",
+            }}
+            src="../../../../public/logo.png"
+          ></img>
         </div>
         <div className="navbar_links">
           <ul>

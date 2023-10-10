@@ -1,12 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { addUser } from "../Store/Slices/userSlice";
 import customAxios from "../Utils/customAxios";
+import { useState } from "react";
 const useLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+const [loading, setLoading] = useState(false);
   const {
     handleSubmit,
     control,
@@ -17,17 +19,19 @@ const useLogin = () => {
   });
 
   const onSubmit = (data) => {
+    setLoading(true);
     customAxios
       .post("/auth/login", data)
       .then((res) => {
         localStorage.setItem("token", res.data.data.token);
         navigate("/");
-        alert("You have successfully logged in");
         dispatch(addUser(data));
         reset();
+        setLoading(false);
       })
       .catch((err) => {
         alert(err.response.data.message);
+        setLoading(false);
       });
   };
   return {
@@ -35,6 +39,7 @@ const useLogin = () => {
     control,
     errors,
     onSubmit,
+    loading,
   };
 };
 
