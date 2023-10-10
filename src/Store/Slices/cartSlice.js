@@ -13,7 +13,10 @@ const Slice = createSlice({
             state.cart = { ...state.cart, ...action.payload };
         },
         removeFromCart: (state, action) => {
-            delete state.cart[action.payload];
+            state.cart = {
+                cart:{},
+                numberOfItems:0
+            }
         },
         updateQuantity: (state, action) => {
             state.cart[action.payload.id].quantity = action.payload.quantity;

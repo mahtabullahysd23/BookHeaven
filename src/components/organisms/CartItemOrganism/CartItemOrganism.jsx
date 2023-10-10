@@ -16,19 +16,20 @@ const CartItemOrganism = () => {
   const [books, setBooks] = useState([]);
 
   const booksinCart = useSelector((state) => state.cart.cart.cart_total);
+  const email = useSelector((state) => state.user.email);
 
   useEffect(() => {
     customAxios
       .get("/cart/view").then((res) => {
+    
         setBooks(res.data.data);
         dispatch(addNumberOfItems(res.data.data.books.length));
       })
       .catch((err) => {
         setBooks([]);
-        console.log("cart empty");
+        dispatch(addNumberOfItems(0));
       });
-    console.log("re-loaded");
-  }, [booksinCart]);
+  }, [booksinCart, email]);
 
   return (
     <div className="cart-side-modal">
