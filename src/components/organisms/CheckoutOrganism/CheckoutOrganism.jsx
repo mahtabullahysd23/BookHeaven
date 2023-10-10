@@ -1,13 +1,20 @@
 import React from "react";
 import "./CheckoutOrganism.style.scss";
 import CheckoutFormMolecule from "../../molecules/CheckoutFormMolecule/CheckoutFormMolecule";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import CheckoutItemMolecule from "../../molecules/CheckoutItemMolecule/CheckoutItemMolecule";
 import Checkbox from "../../atoms/Checkbox/Checkbox";
 import Button from "../../atoms/Buttons/Button";
+import { useEffect } from "react";
+import { useState } from "react";
+import customAxios from "../../../Utils/customAxios";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addNumberOfItems, addToCart } from "../../../Store/Slices/cartSlice";
 
 const CheckoutOrganism = () => {
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     control,
@@ -16,13 +23,40 @@ const CheckoutOrganism = () => {
   } = useForm({
     mode: "onChange",
   });
+  const [books, setBooks] = useState([]);
+  const [currentBalance, setCurrentBalance] = useState(1000);
   const navigate = useNavigate();
   const onSubmit = (data) => {
-    navigate("/signin");
-    alert("Order Placed Successfully");
-    reset();
-    console.log(data);
+    customAxios
+      .post("/transaction/checkout", data)
+      .then((res) => {
+        alert("Order Placed Successfully");
+        navigate("/books");
+        reset();
+        dispatch(
+          addToCart({
+            cart_total: 0,
+          })
+        );
+        dispatch(addNumberOfItems(0));
+      })
+      .catch((err) => {
+        alert(err.response.message);
+      });
   };
+
+  const booksinCart = useSelector((state) => state.cart.cart.cart_total);
+  useEffect(() => {
+    customAxios
+      .get("/cart/view")
+      .then((res) => {
+        setBooks(res.data.data);
+      })
+      .catch((err) => {
+        setBooks([]);
+      });
+  }, [booksinCart]);
+
   return (
     <form className="checkout-form " onSubmit={handleSubmit(onSubmit)}>
       <div className="chekout-left-div w-100">
@@ -32,24 +66,43 @@ const CheckoutOrganism = () => {
       <div className="checkout-right-div w-100">
         <h3>Your Order</h3>
         <div className="checkout-items">
-          <CheckoutItemMolecule />
-          <CheckoutItemMolecule />
-          <CheckoutItemMolecule />
+          {books.books ? (
+            books.books.map((book) => (
+              <CheckoutItemMolecule
+                key={book.book._id}
+                imageUrl={book.book.imageUrl}
+                product_name={book.book.name}
+                Item_price={book.Item_total}
+                quantity={book.quantity}
+              />
+            ))
+          ) : (
+            <div className="flex-center pt-2 ">
+              <h3>No items for checkout</h3>
+            </div>
+          )}
           <div className="checkout-total flex-between mt-1">
             <h3>Subtotal</h3>
-            <h3>$1000</h3>
+            <h3>${books.cart_total ? books.cart_total : 0}</h3>
           </div>
           <div className="mt-2 pay-option">
             <input className="mb-1" defaultChecked type="radio" />{" "}
             <span>Transfer From Wallet</span>
             <p className="flex-between">
-              Current balance: <span>$1000</span>
+              Current balance:{" "}
+              <span>${currentBalance ? currentBalance : 0}</span>
             </p>
             <p className="flex-between">
-              Cost : <span>$1000</span>
+              Cost : <span>${books.cart_total ? books.cart_total : 0}</span>
             </p>
             <p className="flex-between">
-              Remaining balance: <span>$0</span>
+              Remaining balance:{" "}
+              <span>
+                $
+                {currentBalance - books.cart_total
+                  ? currentBalance - books.cart_total
+                  : 0}
+              </span>
             </p>
           </div>
           <p className="policy">
@@ -65,7 +118,7 @@ const CheckoutOrganism = () => {
               checked="false"
             />
           </div>
-          <Button text="Place Order" type="submit"/>
+          <Button text="Place Order" type="submit" />
         </div>
       </div>
     </form>

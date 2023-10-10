@@ -1,6 +1,6 @@
 import './FormInput.style.scss'
 import { Controller } from "react-hook-form";
-const FormInput = ({labelText,type,name,control,errors,rules}) => {
+const FormInput = ({labelText,type,name,control,errors,rules,defaultValue}) => {
   return (
     <div className="input-group">
       <label htmlFor={name}>{labelText}</label>
@@ -8,7 +8,7 @@ const FormInput = ({labelText,type,name,control,errors,rules}) => {
         name={name}
         control={control}
         rules={rules}
-        defaultValue=""
+        defaultValue={defaultValue}
         render={({ field }) => (
           <>
             <input

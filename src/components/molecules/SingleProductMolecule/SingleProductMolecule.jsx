@@ -19,12 +19,25 @@ const SingleProductMolecule = ({ singlebook }) => {
   };
 
   const handleAddToCart = () => {
+
+    customAxios
+      .post("/cart/add", {
+        book: singlebook._id,
+        quantity: value,
+      })
+      .then((res) => {
+        dispatch(addToCart(res.data.data));
+        alert(res.data.message);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
    
   };
 
   return (
     <div className="single-product-right">
-      <Tag text="New" color="green" />
+      <Tag text={singlebook.tag} color="green" />
       <h2>{singlebook.name}</h2>
       <div className="rating-single-product">
         <DisplayRating rating={singlebook.rating} />

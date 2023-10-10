@@ -1,7 +1,9 @@
 import React from "react";
 import "./CheckoutFormMolecule.style.scss";
 import FormInput from "../../atoms/FormInput/FormInput";
-const CheckoutFormMolecule = ({control,errors}) => {
+import jwtDecode from "jwt-decode";
+const CheckoutFormMolecule = ({ control, errors }) => {
+  const user = jwtDecode(localStorage.getItem("token")).data;
   return (
     <>
       <div className="checkout-form-div">
@@ -9,6 +11,7 @@ const CheckoutFormMolecule = ({control,errors}) => {
           labelText="Name"
           type="text"
           name="name"
+          defaultValue={user.user.name}
           control={control}
           errors={errors}
           rules={{
@@ -24,6 +27,7 @@ const CheckoutFormMolecule = ({control,errors}) => {
           labelText="Country/Region"
           type="text"
           name="country"
+          defaultValue={user.country}
           control={control}
           errors={errors}
           rules={{
