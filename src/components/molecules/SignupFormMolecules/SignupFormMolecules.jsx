@@ -5,7 +5,10 @@ import FormInput from "../../atoms/FormInput/FormInput";
 import PasswordInput from "../../atoms/PasswordInput/PasswordInput";
 import Button from "../../atoms/Buttons/Button";
 import customAxios from "../../../Utils/customAxios";
+import { useState } from "react";
+import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
 const SignupFormMolecules = () => {
+  const [loading, setLoading] = useState(false);
   const {
     handleSubmit,
     control,
@@ -18,20 +21,27 @@ const SignupFormMolecules = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const modifiedData = {
-      ...data,  
-      country: "Bangladesh"
+      ...data,
+      country: "Bangladesh", //it will be tracked from ip later
     };
-   
+
     customAxios
       .post("/auth/signup", modifiedData)
       .then((res) => {
+        setLoading(false);
         alert(res.data.message);
         navigate("/signin");
         reset();
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        setLoading(false);
+        if (err.response.status === 409) {
+          alert("Email already exists");
+        } else {
+          alert(err.response.data.error[0].msg);
+        }
       });
   };
   return (
@@ -88,8 +98,11 @@ const SignupFormMolecules = () => {
         text="Confirm password"
         watch={watch}
       />
-
-      <Button type="submit" text="Sign Up" />
+      {loading ? (
+        <Button type="submit" disabled={true} text={<LinearLoader />} />
+      ) : (
+        <Button type="submit" text="Sign Up" />
+      )}
     </form>
   );
 };

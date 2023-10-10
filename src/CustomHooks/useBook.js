@@ -13,7 +13,7 @@ const useBook = () => {
       .get(searchQuery)
       .then((response) => {
         setBooks(response.data.data.books);
-        setLoading(false);
+         setLoading(false);
       })
       .catch((error) => {
         setBooks([]);

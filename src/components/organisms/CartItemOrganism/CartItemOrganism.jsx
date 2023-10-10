@@ -9,6 +9,7 @@ import customAxios from "../../../Utils/customAxios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { addNumberOfItems } from "../../../Store/Slices/cartSlice";
+import { BsCartX } from "react-icons/bs";
 
 const CartItemOrganism = () => {
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ const CartItemOrganism = () => {
 
   useEffect(() => {
     customAxios
-      .get("/cart/view").then((res) => {
-    
+      .get("/cart/view")
+      .then((res) => {
         setBooks(res.data.data);
         dispatch(addNumberOfItems(res.data.data.books.length));
       })
@@ -47,18 +48,20 @@ const CartItemOrganism = () => {
                   product_name={book.book.name}
                   price={book.Item_total}
                   imageUrl={book.book.imageUrl}
-                  quantity={book.quantity} 
-                  stock={book.book.stock} 
+                  quantity={book.quantity}
+                  stock={book.book.stock}
                 />
               ))
             ) : (
               <h3 className="flex-center mt-2 mb-2">No items in cart</h3>
             )}
           </div>
-          <div className="flex-between mt-1 ">
-            <h3>Subtotal:</h3>
-            <h3>{books.cart_total ? books.cart_total : 0}</h3>
-          </div>
+          {books.cart_total ? (
+            <div className="flex-between mt-1 ">
+              <h3>Subtotal:</h3>
+              <h3>{books.cart_total}</h3>
+            </div>
+          ) : null}
         </div>
         <div className="w-100">
           <div className="cart-button-group mb-1">
@@ -66,12 +69,17 @@ const CartItemOrganism = () => {
               className="black-button w-100 mt-1"
               text="Checkout"
               onClick={() => {
-                navigate("/checkout");
+                books.books&&navigate("/checkout");
                 dispatch(closeModal("cartModal"));
+                !books.books&&alert("No items in cart");
               }}
             />
             <Button
               className="ash-button w-100 mt-1"
+              onClick={() => {
+                navigate("/books");
+                dispatch(closeModal("cartModal"));
+              }}
               text="Continue Shopping"
             />
           </div>
