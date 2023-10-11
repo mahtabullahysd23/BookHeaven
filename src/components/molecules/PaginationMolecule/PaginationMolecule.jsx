@@ -1,13 +1,27 @@
-import './PaginationMolecule.style.scss';
-import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import "./PaginationMolecule.style.scss";
+import React, { useState } from "react";
+import { addFilter } from "../../../Store/Slices/filterSlice";
 
 const Pagination = ({ totalItems, itemsPerPage }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
+  const filterString = useSelector((state) => state.filter.filterString);
+  const dispatch = useDispatch();
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
+      if (filterString.includes("Page=")) {
+        const appliedFilter = filterString.replace(
+          /Page=\d+/g,
+          `Page=${newPage}`
+        );
+        dispatch(addFilter(appliedFilter));
+      } else {
+        const appliedFilter = filterString + `Page=${newPage}&`;
+        dispatch(addFilter(appliedFilter));
+      }
     }
   };
 
@@ -37,7 +51,9 @@ const Pagination = ({ totalItems, itemsPerPage }) => {
       return (
         <button
           key={pageNumber}
-          className={`pagination-btn ${currentPage === pageNumber ? 'active-page' : ''}`}
+          className={`pagination-btn ${
+            currentPage === pageNumber ? "active-page" : ""
+          }`}
           onClick={() => handlePageChange(pageNumber)}
         >
           {pageNumber}

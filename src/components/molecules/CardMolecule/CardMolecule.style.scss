@@ -6,6 +6,7 @@
     margin: 0 auto; /* Center the card horizontally */
     position: relative;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .card img {
@@ -80,4 +81,14 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.stock-class{
+    font-size: 0.8rem;
+    color: $green-color;
+}
+
+.stock-class-red{
+    font-size: 0.8rem;
+    color: $danger-color;
 }
