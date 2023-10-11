@@ -17,19 +17,21 @@ const useBook = () => {
       })
       .catch((error) => {
         setBooks([]);
+        setLoading(false);
         console.error("Error fetching data:", error);
       });
   };
 
   useEffect(() => {
-
-    if (searchQuery === "/books") {
+    window.scrollTo(0, 0);
+    if (searchQuery === "/books?") {
       callApi();
     } else {
-      const timeOut = setTimeout(() => {
-        callApi();
-      }, 1000);
-      return () => clearTimeout(timeOut);
+      callApi();
+      // const timeOut = setTimeout(() => {
+      //   callApi();
+      // }, 1000);
+      // return () => clearTimeout(timeOut);
     }
   }, [searchQuery]);
 

@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import "./Home.style.scss";
-import DdebitCardMolecule from "../../molecules/DebitCardMolecule/DebitCardMolecule";
+import DisplayReviewMolecule from "../../molecules/DisplayReviewMolecule/DisplayReviewMolecule";
+import ProgressBar from "../../atoms/ProgressBar/ProgressBar";
+import RatingStatsMolecule from "../../molecules/RatingStatesMolecule/RatingStatsMolecule";
+import StarRadio from "../../atoms/StarRadio/StarRadio";
 const Home = () => {
-
   return (
     <>
       <div className="container">
         <h1 style={{ marginTop: "150px", marginBottom: "150px" }}>Home</h1>
       </div>
 
-      <div>
-      <DdebitCardMolecule
-        cardNumber="1234 5678 9012 3456"
-        cardHolder="John Doe"
-        expirationDate="12/23"
-        cardType="Visa"
-        backgroundColor="#f1f1f1"
+      <DisplayReviewMolecule
+        userImage="/public/myimg.png"
+        userName="John Doe"
+        rating={4}
+        comment="This product is excellent. I would highly recommend it!"
+        dateTime="2023-10-11 15:30"
       />
-    </div>
+  <RatingStatsMolecule
+    one={1}
+    two={2}
+    three={3}
+    four={4}
+    five={5}
+    total={15}
+  />
 
     </>
   );

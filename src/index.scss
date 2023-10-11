@@ -47,7 +47,8 @@ input{
 /* Custom Black-Orange-White Theme Scrollbar Styles */
 /* Webkit (Safari and Chrome) */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
+    height: 8px;
   }
   
   ::-webkit-scrollbar-track {
@@ -73,6 +74,7 @@ input{
   /* Note: Customizing scrollbar in IE and Edge is not as straightforward */
   *::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
   }
   
   *::-webkit-scrollbar-track {
@@ -178,6 +180,10 @@ input{
   }
   .gap-3{
     gap: 3rem;
+  }
+
+  .bb-1{
+    border-bottom: 1px solid $gray-light-color;
   }
 
  

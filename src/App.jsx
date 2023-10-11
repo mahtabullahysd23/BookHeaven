@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./components/templates/About/About";
 import Contacts from "./components/templates/Contacts/Contacts";
 import Books from "./components/templates/Books/Books";
+import SingleBook from "./components/templates/SingleBook/SingleBook";
 import Checkout from "./components/templates/Checkout/Checkout";
 import Authenticated from "./Utils/Authenticated";
 import "./App.scss";
@@ -26,6 +27,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contacts />} />
               <Route path="/books" element={<Books />} />
+              <Route path="/books/:id" element={<SingleBook/>} />
               <Route element={<Authenticated />}>
                 <Route path="/checkout" element={<Checkout />} />
               </Route>

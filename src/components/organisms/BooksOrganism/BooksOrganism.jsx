@@ -26,10 +26,13 @@ const BooksOrganism = () => {
               discount={book.discount}
               tag={book.tag}
               imgUrl={book.imageUrl}
+              stock={book.stock}
             />
           );
         })
-      )}
+      )
+      
+      }
     </div>
   );
 };

@@ -11,14 +11,26 @@ import customAxios from "../../../Utils/customAxios";
 import { addSingleBook } from "../../../Store/Slices/bookSlice";
 import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const CardMolecule = ({ id, name, price, rating, discount, tag, imgUrl }) => {
+const CardMolecule = ({
+  id,
+  name,
+  price,
+  rating,
+  discount,
+  tag,
+  imgUrl,
+  stock,
+}) => {
   const [loading, setLoading] = useState(false);
   const [loadingeye, setLoadingeye] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleClickAddtoCart = () => {
+  const handleClickAddtoCart = (event) => {
+    event.stopPropagation();
     setLoading(true);
     customAxios
       .post("/cart/add", {
@@ -36,7 +48,8 @@ const CardMolecule = ({ id, name, price, rating, discount, tag, imgUrl }) => {
       });
   };
 
-  const handleClickQuickView = () => {
+  const handleClickQuickView = (event) => {
+    event.stopPropagation();
     setLoadingeye(true);
     customAxios.get(`/books/${id}`).then((res) => {
       dispatch(addSingleBook(res.data.data));
@@ -45,21 +58,33 @@ const CardMolecule = ({ id, name, price, rating, discount, tag, imgUrl }) => {
     });
   };
 
+  const handleClickSingleBookPage = (event) => {
+    event.stopPropagation();
+    navigate(`/books/${id}`);
+  };
+
   return (
     <>
-      <div className="card">
+      <div className="card" onClick={handleClickSingleBookPage}>
         <div className="icon-button-group">
-          <div className="icon-button" onClick={!loadingeye ? handleClickQuickView:undefined}>
-          {!loadingeye ? <FaEye /> : <RoundLoader color="whiteClass" />}
+          <div
+            className="icon-button"
+            onClick={!loadingeye ? handleClickQuickView : undefined}
+          >
+            {!loadingeye ? <FaEye /> : <RoundLoader color="whiteClass" />}
           </div>
           <div className="icon-button">
             <RiHeart2Fill />
           </div>
           <div
             className="icon-button"
-            onClick={!loading? handleClickAddtoCart:undefined}
+            onClick={!loading ? handleClickAddtoCart : undefined}
           >
-            {!loading ? <BsFillCartPlusFill /> : <RoundLoader color="whiteClass" />}
+            {!loading ? (
+              <BsFillCartPlusFill />
+            ) : (
+              <RoundLoader color="whiteClass" />
+            )}
           </div>
         </div>
         <div className="header-card">
@@ -73,8 +98,11 @@ const CardMolecule = ({ id, name, price, rating, discount, tag, imgUrl }) => {
         />
         <div className="card-div">
           <h3>{name}</h3>
+          <p className={stock > 0 ? "stock-class" : "stock-class-red"}>
+            {stock > 0 ? "(In Sotck)" : "(Out of Stock)"}
+          </p>
           <div className="rating-card-view">
-            <DisplayRating rating={rating}/>
+            <DisplayRating rating={rating} />
           </div>
           <p>{price}</p>
         </div>

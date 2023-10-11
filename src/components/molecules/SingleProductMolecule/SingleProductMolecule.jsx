@@ -44,7 +44,7 @@ const SingleProductMolecule = ({ singlebook }) => {
       <div className="rating-single-product">
         <DisplayRating rating={singlebook.rating} />
         <p>
-          {`${singlebook.rating} Rating (${singlebook.reviews.length} Customer reviews)`}{" "}
+          {`${parseFloat(singlebook.rating.toFixed(2))} Rating (${singlebook.reviews.length} Customer reviews)`}{" "}
         </p>
       </div>
       <p>{singlebook.description}</p>
