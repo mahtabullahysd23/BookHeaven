@@ -12,8 +12,8 @@ const useBook = () => {
     customAxios
       .get(searchQuery)
       .then((response) => {
-        setBooks(response.data.data.books);
-         setLoading(false);
+        setBooks(response.data.data);
+        setLoading(false);
       })
       .catch((error) => {
         setBooks([]);
@@ -24,14 +24,13 @@ const useBook = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (searchQuery === "/books?") {
-      callApi();
+    if (searchQuery.includes("Search")) {
+      const timeOut = setTimeout(() => {
+        callApi();
+      }, 1000);
+      return () => clearTimeout(timeOut);
     } else {
       callApi();
-      // const timeOut = setTimeout(() => {
-      //   callApi();
-      // }, 1000);
-      // return () => clearTimeout(timeOut);
     }
   }, [searchQuery]);
 
