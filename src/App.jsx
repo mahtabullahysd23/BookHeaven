@@ -11,6 +11,11 @@ import SingleBook from "./components/templates/SingleBook/SingleBook";
 import Checkout from "./components/templates/Checkout/Checkout";
 import Authenticated from "./Utils/Authenticated";
 import "./App.scss";
+import AdminNavBar from "../src/components/organisms/AdminNavBar/AdminNavBar";
+import AdminAuth from "./Utils/AdminAuth";
+import { useEffect } from "react";
+import { useState } from "react";
+import jwtDecode from "jwt-decode";
 function App() {
   return (
     <>
@@ -27,9 +32,15 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contacts />} />
               <Route path="/books" element={<Books />} />
-              <Route path="/books/:id" element={<SingleBook/>} />
+              <Route path="/books/:id" element={<SingleBook />} />
               <Route element={<Authenticated />}>
                 <Route path="/checkout" element={<Checkout />} />
+              </Route>
+              <Route element={<AdminAuth />}>
+                <Route path="admin/books" element={<Books />} />
+                <Route path="admin/users" element={<h1>Users</h1>} />
+                <Route path="admin/orders" element={<h1>Orders</h1>} />
+                <Route path="admin/discounts" element={<h1>Discounts</h1>} />
               </Route>
               <Route path="*" element={<h1>404 Not Found</h1>} />
             </Routes>

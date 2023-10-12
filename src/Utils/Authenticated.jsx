@@ -1,16 +1,18 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useEffect} from "react";
+import { useSelector } from "react-redux";
 
 const Authenticated = () => {
-  const token = localStorage.getItem("token");
-  return token ? (
-    <div>
-      <Outlet />{" "}
-    </div>
-  ) : (
-    <>
-      <Navigate to="/signin" />
-    </>
-  );
-};
+    const role = useSelector((state) => state.user.role);
+    return role === "user" ? (
+      <div>
+        <Outlet />{" "}
+      </div>
+    ) : (
+      <>
+        <Navigate to="/signin" />
+      </>
+    );
+  };
 
 export default Authenticated;

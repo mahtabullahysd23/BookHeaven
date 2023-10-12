@@ -24,6 +24,7 @@ const SingleBook = () => {
   const { id } = useParams();
   const singlebook = useSelector((state) => state.book.singlebook);
   const [loadingPost, SetloadingPost] = useState(false);
+
   const {
     handleSubmit,
     control,
@@ -194,14 +195,16 @@ const SingleBook = () => {
             <div className="reviews-content">
               {singlebook ? (
                 singlebook.reviews.map((review, index) => (
-                    <DisplayReviewMolecule
-                      key={index}
-                      userImage="/public/myimg.png"
-                      userName={review.user.name}
-                      rating={review.rating}
-                      comment={review.review}
-                      dateTime={review.createdAt}
-                    />
+                  <DisplayReviewMolecule
+                    key={index}
+                    userImage="/public/myimg.png"
+                    userName={review.user.name}
+                    rating={review.rating}
+                    comment={review.review}
+                    dateTime={review.createdAt}
+                    userId={review.user._id}
+                    reviewId={review._id}
+                  />
                 ))
               ) : (
                 <h1>No Review</h1>

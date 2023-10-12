@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { deleteUser } from "../../../Store/Slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addRole, deleteUser } from "../../../Store/Slices/userSlice";
 import "./ProfileNameMolecule.style.scss";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,6 +19,7 @@ const ProfileName = ({ username, profileImage }) => {
     setIsOpen(!isOpen);
   };
   const dispatch = useDispatch();
+  const role = useSelector((state) => state.user.role);
 
   return (
     <div className="profile-dropdown">
@@ -29,27 +30,32 @@ const ProfileName = ({ username, profileImage }) => {
       {isOpen && (
         <div className="dropdown-content">
           <div className="dropdown-list">
-            <div className="options flex-start gap-1">
-              <SlUser />
-              Profile
-            </div>
-            <div className="options flex-start gap-1">
-              <SlPresent />
-              My Orders
-            </div>
-            <div className="options flex-start gap-1">
-              <SlWallet />
-              My Wallet
-            </div>
-            <div className="options flex-start gap-1">
-              <SlSettings />
-              Settings
-            </div>
+            {role === "user" && (
+              <div>
+                <div className="options flex-start gap-1">
+                  <SlUser />
+                  Profile
+                </div>
+                <div className="options flex-start gap-1">
+                  <SlPresent />
+                  My Orders
+                </div>
+                <div className="options flex-start gap-1">
+                  <SlWallet />
+                  My Wallet
+                </div>
+                <div className="options flex-start gap-1">
+                  <SlSettings />
+                  Settings
+                </div>
+              </div>
+            )}
             <div
-              className="options flex-start gap-1"
+              className="options flex-start gap-1 "
               onClick={() => {
                 dispatch(deleteUser());
                 localStorage.removeItem("token");
+                dispatch(addRole("user"));
                 navigate("/signin");
               }}
             >

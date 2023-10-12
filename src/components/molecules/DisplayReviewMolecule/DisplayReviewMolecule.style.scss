@@ -8,6 +8,7 @@
     width: 100%;
     min-width: 300px;
     min-height: 141px;
+    position: relative;
   }
   
   .user-info {
@@ -41,3 +42,12 @@
     font-size: 0.8em;
   }
   
+
+  .review-cross{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    cursor: pointer;
+    transform: translate(-2px , -3px);
+  }
