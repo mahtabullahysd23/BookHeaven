@@ -18,7 +18,6 @@ const CartItemOrganism = () => {
 
   const booksinCart = useSelector((state) => state.cart.cart.cart_total);
   const email = useSelector((state) => state.user.email);
-
   useEffect(() => {
     customAxios
       .get("/cart/view")
@@ -29,9 +28,6 @@ const CartItemOrganism = () => {
       .catch((err) => {
         setBooks([]);
         dispatch(addNumberOfItems(0));
-        if(err.response.status===401){
-          localStorage.removeItem("token");
-        }
       });
   }, [booksinCart, email]);
 

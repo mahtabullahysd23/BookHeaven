@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { set, useForm } from "react-hook-form";
-import { addUser } from "../Store/Slices/userSlice";
+import { useForm } from "react-hook-form";
+import { addRole, addUser } from "../Store/Slices/userSlice";
 import customAxios from "../Utils/customAxios";
 import { useState } from "react";
 const useLogin = () => {
@@ -25,6 +25,7 @@ const [loading, setLoading] = useState(false);
       .then((res) => {
         localStorage.setItem("token", res.data.data.token);
         navigate("/");
+        dispatch(addRole(res.data.data.role));
         dispatch(addUser(data));
         reset();
         setLoading(false);
