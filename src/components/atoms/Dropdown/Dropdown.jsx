@@ -9,8 +9,16 @@ const Dropdown = ({ options, selectedOption, onSelect }) => {
   };
 
   const handleOptionClick = (index, option) => {
-   
+
     if (index === 0) {
+      onSelect({
+        option: option,
+        sort: "default",
+        order: "default",
+      });
+    }
+   
+    if (index === 1) {
       onSelect({
         option: option,
         sort: "price",
@@ -18,7 +26,7 @@ const Dropdown = ({ options, selectedOption, onSelect }) => {
       });
     }
 
-    if (index === 1) {
+    if (index === 2) {
       onSelect({
         option: option,
         sort: "price",
@@ -26,14 +34,14 @@ const Dropdown = ({ options, selectedOption, onSelect }) => {
       });
     }
 
-    if (index === 2) {
+    if (index === 3) {
       onSelect({
         option: option,
         sort: "name",
         order: "asc",
       });
     }
-    if (index === 3) {
+    if (index === 4) {
       onSelect({
         option: option,
         sort: "name",

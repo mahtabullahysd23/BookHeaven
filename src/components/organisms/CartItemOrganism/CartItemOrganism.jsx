@@ -29,6 +29,9 @@ const CartItemOrganism = () => {
       .catch((err) => {
         setBooks([]);
         dispatch(addNumberOfItems(0));
+        if(err.response.status===401){
+          localStorage.removeItem("token");
+        }
       });
   }, [booksinCart, email]);
 

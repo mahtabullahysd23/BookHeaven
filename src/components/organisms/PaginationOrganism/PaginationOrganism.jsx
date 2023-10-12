@@ -1,17 +1,24 @@
 import React from 'react'
 import './PaginationOrganism.style.scss'    
 import PaginationMolecule from '../../molecules/PaginationMolecule/PaginationMolecule'
+import useBook from '../../../CustomHooks/useBook'
 
 
 const PaginationOrganism = () => {
+  const { books } = useBook();
+  const totalResults = books.total;
+  const pageNumber = books.page;
+  const limit = books.limit;
+  const X = (pageNumber === 1) ? 1 : (pageNumber - 1) * limit + 1;
+  const Y = Math.min(pageNumber * limit, totalResults);
   return (
     <div className="pagination">
         <p>
-            showing 1-12 of 100 results
+            { `Showing ${X} - ${Y} of ${totalResults} results`}
         </p>
         <PaginationMolecule
-             totalItems={24}
-             itemsPerPage={12}
+             totalItems={books.total}
+             itemsPerPage={books.limit}
         />
     </div>
   )

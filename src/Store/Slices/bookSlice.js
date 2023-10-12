@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
     singlebook: null,
     allBooks: [],
+    orientation:"book-container"
 };
 
 const Slice = createSlice({
@@ -15,9 +15,12 @@ const Slice = createSlice({
         addAllBooks: (state, action) => {
             state.allBooks = action.payload;
         },
+        changeOrientation: (state, action) => {
+            state.orientation = action.payload;
+        },
     },
 });
 
-export const { addSingleBook, addAllBooks } = Slice.actions;
+export const { addSingleBook, addAllBooks, changeOrientation } = Slice.actions;
 
 export default Slice.reducer;

@@ -3,18 +3,23 @@ import CardMolecule from "../../molecules/CardMolecule/CardMolecule";
 import "./BooksOrganism.style.scss";
 import useBook from "../../../CustomHooks/useBook";
 import Loader from "../../atoms/Loadder/Loadder";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const BooksOrganism = () => {
   const { books, loading } = useBook();
-
+  const orientation = useSelector((state) => state.book.orientation);
+  useEffect(() => {
+    const grid_list =()=>{
+      orientation=== "list" ? "list-container" : orientation === "grid2x" ? "grid-2x" : "book-container"
+    } 
+  }, [orientation]);
   return (
-    <div className="book-container">
+    <div className={orientation}>
       {loading ? (
-
-          <Loader />
-
-      ) : (
-        books.map((book) => {
+        <Loader />
+      ) : books.books ? (
+        books.books.map((book) => {
           return (
             <CardMolecule
               key={book._id}
@@ -30,9 +35,9 @@ const BooksOrganism = () => {
             />
           );
         })
-      )
-      
-      }
+      ) : (
+        <div className="no-book">No book found !</div>
+      )}
     </div>
   );
 };

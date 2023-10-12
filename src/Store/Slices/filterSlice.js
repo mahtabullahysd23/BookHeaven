@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    filterString: "/books?",
+    filterString: "/books?Page=1&",
 };
 
 const Slice = createSlice({
@@ -12,7 +12,7 @@ const Slice = createSlice({
             state.filterString = action.payload;
         },
         deleteFilter: (state, action) => {
-            state.filterString = "/books?";
+            state.filterString = "/books?Page=1&";
         },
     },
 });
