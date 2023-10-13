@@ -12,9 +12,13 @@ import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
 import { useSelector } from "react-redux";
 import FormInput from "../../atoms/FormInput/FormInput";
 import { useForm } from "react-hook-form";
-import { Form } from "react-router-dom";
+import { addAllBooks } from "../../../Store/Slices/bookSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 const SingleProductMolecule = ({ singlebook }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loadingAddtoCart, setLoadingAddtoCart] = useState(false);
   const [value, setValue] = useState(1);
@@ -42,12 +46,13 @@ const SingleProductMolecule = ({ singlebook }) => {
       })
       .then((res) => {
         dispatch(addToCart(res.data.data));
-        alert(res.data.message);
+        toast.success(res.data.message);
         setLoadingAddtoCart(false);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        toast.error(err.response.data.message);
         setLoadingAddtoCart(false);
+        navigate("/signin");
       });
   };
 
@@ -56,11 +61,12 @@ const SingleProductMolecule = ({ singlebook }) => {
     customAxios
       .patch(`/books/update/${singlebook._id}`, data)
       .then((res) => {
-        alert(res.data.message);
+        toast.success(res.data.message);
+        dispatch(addAllBooks(singlebook._id));
         setLoading(false);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        toast.error(err.response.data.message);
         setLoading(false);
       });
   }
@@ -254,11 +260,13 @@ const SingleProductMolecule = ({ singlebook }) => {
               }}
             />
 
-             {loading ? (
+            
+             { loading ? (
                 <Button type="submit" disabled={true} text={<LinearLoader />} />
               ) : (
                 <Button type="submit" text="Update Book" />
-              )}
+              )
+              }
 
 
 

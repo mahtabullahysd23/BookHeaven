@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { addNumberOfItems } from "../../../Store/Slices/cartSlice";
 import { BsCartX } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 const CartItemOrganism = () => {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ const CartItemOrganism = () => {
               onClick={() => {
                 books.books&&navigate("/checkout");
                 dispatch(closeModal("cartModal"));
-                !books.books&&alert("No items in cart");
+                !books.books&&toast.error("No items in cart");
               }}
             />
             <Button

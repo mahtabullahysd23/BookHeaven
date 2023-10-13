@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { BiEditAlt } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
 import setDeletedBook from "../../../Store/Slices/bookSlice";
+import { toast } from "react-toastify";
 
 const CardMolecule = ({
   id,
@@ -46,10 +47,16 @@ const CardMolecule = ({
       .then((res) => {
         setLoading(false);
         dispatch(addToCart(res.data.data));
-        // alert(res.data.message);
+         toast.success(res.data.message);
       })
       .catch((err) => {
-        alert(err.response.data.error[0].msg);
+        if(err.response.status === 401){
+          navigate("/signin");
+          toast.error("Please Signin to add to cart");
+        }
+        else{
+          toast.error(err.response.data.error[0].msg);
+        }
         setLoading(false);
       });
   };
@@ -58,6 +65,7 @@ const CardMolecule = ({
     event.stopPropagation();
     setLoadingeye(true);
     customAxios.get(`/books/${id}`).then((res) => {
+
       dispatch(addSingleBook(res.data.data));
       dispatch(openModal("eyeModal"));
       setLoadingeye(false);
@@ -74,13 +82,13 @@ const CardMolecule = ({
     customAxios
       .delete(`/books/delete/${id}`)
       .then((res) => {
-        alert(res.data.message);
+        toast.success(res.data.message);
         dispatch(addAllBooks(id));
         setDeleted(!deleted);
         navigate("/books");
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        toast.error(err.response.data.message);
       });
   };
 

@@ -2,9 +2,26 @@ import React from "react";
 import "./DisplayReviewMolecule.style.scss";
 import DisplayRating from "../../atoms/DisplayRating/DisplayRating";
 import CrossButton from "../../atoms/CrossButton/CrossButton";
-const Review = ({ userImage, userName, rating, comment, dateTime , }) => {
+import customAxios from "../../../Utils/customAxios";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { addAllBooks } from "../../../Store/Slices/bookSlice";
+const Review = ({ userImage, userName, rating, comment, dateTime ,reviewId}) => {
+const dispatch = useDispatch();
+
   const handleDeleteClice = () => {
-    console.log("delete clicked");
+    customAxios
+      .delete(`/reviews/delete/${reviewId}`)
+      .then((res) => {
+        console.log(res);
+        toast.success("Review Deleted Successfully");
+        dispatch(addAllBooks(reviewId));
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data.message);
+      });
+      
   }
   return (
     <div className="review">

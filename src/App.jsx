@@ -18,9 +18,13 @@ import { useState } from "react";
 import jwtDecode from "jwt-decode";
 import User from "./components/templates/Users/User";
 import Transaction from "./components/templates/Transactions/Transaction";
+import Wallet from "./components/templates/Wallet/Wallet";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
+      <ToastContainer />
       <Router>
         <div className="app-container">
           <div className="app-nav-container">
@@ -37,6 +41,9 @@ function App() {
               <Route path="/books/:id" element={<SingleBook />} />
               <Route element={<Authenticated />}>
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/wallet" element={<Wallet/>} />
+                <Route path="/transaction" element={<Transaction/>} />
+
               </Route>
               <Route element={<AdminAuth />}>
                 <Route path="admin/books" element={<Books />} />

@@ -1,13 +1,6 @@
 .USER-CONTAINER{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding:1rem;
-    margin-top: 75px;
-    height:800px;
     overflow: auto;
-
+    margin-top:75px ;
 }
 
 .form-div-user{
@@ -16,7 +9,7 @@
 }
 
 .form-container{
-    min-width:500px;
+    min-width:300px;
     padding:3rem;
 }
 

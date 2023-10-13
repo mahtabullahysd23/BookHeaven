@@ -15,6 +15,7 @@ import { addNumberOfItems, addToCart } from "../../../Store/Slices/cartSlice";
 import Loadder from "../../atoms/Loadder/Loadder";
 import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
 import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
+import { toast } from "react-toastify";
 
 const CheckoutOrganism = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,23 @@ const CheckoutOrganism = () => {
     mode: "onChange",
   });
   const [books, setBooks] = useState([]);
-  const [currentBalance, setCurrentBalance] = useState(1000);
+  const [currentBalance, setCurrentBalance] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoading(true);
+    customAxios
+      .get("/wallet/mywallet")
+      .then((res) => {
+        console.log(res.data.data);
+        setCurrentBalance(res.data.data.balance);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.response.data.data);
+        setLoading(false);
+      });
+  },[]);
 
   const onSubmit = (data) => {
     setLoadingCheckout(true);
@@ -38,7 +54,7 @@ const CheckoutOrganism = () => {
       .post("/transaction/checkout", data)
       .then((res) => {
         setLoadingCheckout(false);
-        alert("Order Placed Successfully");
+        toast.success("Order Placed Successfully");
         navigate("/books");
         reset();
         dispatch(
@@ -49,7 +65,7 @@ const CheckoutOrganism = () => {
         dispatch(addNumberOfItems(0));
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        toast.error(err.response.data.message);
         setLoadingCheckout(false);
       });
   };

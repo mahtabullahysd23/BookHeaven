@@ -10,6 +10,7 @@ import {
   SlSettings,
   SlLogout,
 } from "react-icons/sl";
+import { addSingleBook } from "../../../Store/Slices/bookSlice";
 
 const ProfileName = ({ username, profileImage }) => {
   const navigate = useNavigate();
@@ -36,11 +37,11 @@ const ProfileName = ({ username, profileImage }) => {
                   <SlUser />
                   Profile
                 </div>
-                <div className="options flex-start gap-1">
+                <div className="options flex-start gap-1" onClick={()=>navigate('/transaction')}>
                   <SlPresent />
                   My Orders
                 </div>
-                <div className="options flex-start gap-1">
+                <div className="options flex-start gap-1" onClick={()=>navigate('/wallet')}>
                   <SlWallet />
                   My Wallet
                 </div>

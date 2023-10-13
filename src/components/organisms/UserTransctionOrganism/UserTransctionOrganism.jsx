@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import customAxios from "../../../Utils/customAxios";
 import UserCard from "../../atoms/UserCard/UserCard";
-import "./TransactionOrganism.style.scss";
 import FormInput from "../../atoms/FormInput/FormInput";
 import { set, useForm } from "react-hook-form";
 import Button from "../../atoms/Buttons/Button";
@@ -13,7 +12,7 @@ import { Controller } from "react-hook-form";
 import TransactionCard from "../../atoms/TRansactionCard/TRansactionCard";
 import { toast } from "react-toastify";
 
-const TransactionOrganism = () => {
+const UserTransactionOrganism = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
@@ -28,13 +27,13 @@ const TransactionOrganism = () => {
     mode: "onChange",
   });
 
-  const handleEditSer = (id, name, address, role, banned, locked,city) => {
+  const handleEditSer = (id, name, address, role, banned, locked) => {
     setValue("role", role);
     setValue("name", name);
     setValue("address", address);
     setValue("banned", banned);
     setValue("locked", locked);
-    setUserData({ id, name, address, role, banned, locked ,city});
+    setUserData({ id, name, address, role, banned, locked });
   };
 
   const onSubmit = async (data) => {
@@ -55,15 +54,12 @@ const TransactionOrganism = () => {
   useEffect(() => {
     setLoadder(true);
     customAxios
-      .get("/transaction/all")
+      .get("/transaction/view")
       .then((res) => {
         setUsers(res.data.data);
         setLoadder(false);
       })
-      .catch((err) => {
-        setLoadder(false);
-        toast.error(err.response.data.data);
-      });
+      .catch((err) => console.log(err));
   }, [updated]);
   return (
     <>
@@ -75,13 +71,13 @@ const TransactionOrganism = () => {
             {users.map((user) => {
               return (
                 <TransactionCard
-                  name={user.user.name}
-                  email={user.user.email}
+                  name={user._id}
+                  email={user.createdAt}
                   address={user.streetAddress}
-                  id={user.user._id}
+                  city={user.city}
+                //   id={user.user._id}
                   total={user.total}
-                  status={user.status}
-                    city={user.city}
+                   status={"pending"}
                 />
               );
             })}
@@ -92,4 +88,4 @@ const TransactionOrganism = () => {
   );
 };
 
-export default TransactionOrganism;
+export default UserTransactionOrganism;
