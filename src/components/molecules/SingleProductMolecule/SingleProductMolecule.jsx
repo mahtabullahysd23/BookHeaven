@@ -9,10 +9,24 @@ import customAxios from "../../../Utils/customAxios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../Store/Slices/cartSlice";
 import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
+import { useSelector } from "react-redux";
+import FormInput from "../../atoms/FormInput/FormInput";
+import { useForm } from "react-hook-form";
+import { Form } from "react-router-dom";
+
 const SingleProductMolecule = ({ singlebook }) => {
   const dispatch = useDispatch();
   const [loadingAddtoCart, setLoadingAddtoCart] = useState(false);
   const [value, setValue] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const role = useSelector((state) => state.user.role);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+  });
 
   const HandleQuantity = (value) => {
     setValue(value);
@@ -37,14 +51,31 @@ const SingleProductMolecule = ({ singlebook }) => {
       });
   };
 
+  const onSubmit = (data) => {
+    setLoading(true);
+    customAxios
+      .patch(`/books/update/${singlebook._id}`, data)
+      .then((res) => {
+        alert(res.data.message);
+        setLoading(false);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+        setLoading(false);
+      });
+  }
+
   return (
+    
     <div className="single-product-right">
       <Tag text={singlebook.tag} color="green" />
       <h2>{singlebook.name}</h2>
       <div className="rating-single-product">
         <DisplayRating rating={singlebook.rating} />
         <p>
-          {`${parseFloat(singlebook.rating.toFixed(2))} Rating (${singlebook.reviews.length} Customer reviews)`}{" "}
+          {`${parseFloat(singlebook.rating.toFixed(2))} Rating (${
+            singlebook.reviews.length
+          } Customer reviews)`}{" "}
         </p>
       </div>
       <p>{singlebook.description}</p>
@@ -53,30 +84,40 @@ const SingleProductMolecule = ({ singlebook }) => {
           <p>Price :</p>
           <h2>{`$ ${singlebook.price}`}</h2>
         </div>
-        <div className="quantity-single-product">
-          <p>Quantity :</p>
-          <Quantity
-            initialValue={value}
-            min={1}
-            max={singlebook.stock}
-            onChange={HandleQuantity}
-          />
-        </div>
-      </div>
-      <div className="btn-group-single-prouct">
-        {loadingAddtoCart ? (
-          <Button  className="black-button w-100" disabled={true} text={<LinearLoader />} />
-        ) : (
-          <Button
-            text="Add To Cart"
-            className="black-button w-100"
-            onClick={handleAddToCart}
-          />
+        {role != "admin" && (
+          <div className="quantity-single-product">
+            <p>Quantity :</p>
+            <Quantity
+              initialValue={value}
+              min={1}
+              max={singlebook.stock}
+              onChange={HandleQuantity}
+            />
+          </div>
         )}
-        <Button text="Add To WishList" className="ash-button  w-100" />
       </div>
+      {role != "admin" && (
+        <div className="btn-group-single-prouct">
+          {loadingAddtoCart ? (
+            <Button
+              className="black-button w-100"
+              disabled={true}
+              text={<LinearLoader />}
+            />
+          ) : (
+            <Button
+              text="Add To Cart"
+              className="black-button w-100"
+              onClick={handleAddToCart}
+            />
+          )}
+          <Button text="Add To WishList" className="ash-button  w-100" />
+        </div>
+      )}
 
-      <div className="product-info">
+      {
+        role!="admin" &&
+        <div className="product-info">
         <div className="single-info">
           <h5>ISBN:</h5>
           <p>{singlebook.isbn}</p>
@@ -98,6 +139,132 @@ const SingleProductMolecule = ({ singlebook }) => {
           <p>{singlebook.pages}</p>
         </div>
       </div>
+}
+      {role == "admin" && (
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormInput
+              labelText="Name"
+              type="text"
+              name="name"
+              control={control}
+              errors={errors}
+              defaultValue={singlebook.name}
+              rules={{
+                required: "Name is required",
+                maxLength: {
+                  value: 20,
+                  message: "Name should be less than 20 characters",
+                },
+              }}
+            />
+
+            <FormInput
+              labelText="Author"
+              type="text"
+              name="author"
+              control={control}
+              errors={errors}
+              defaultValue={singlebook.author}
+              rules={{
+                required: "Author is required",
+                maxLength: {
+                  value: 20,
+                  message: "Author should be less than 20 characters",
+                },
+              }}
+            />
+
+            <FormInput
+              labelText="Publisher"
+              type="text"
+              name="publisher"
+              control={control}
+              errors={errors}
+              defaultValue={singlebook.publisher}
+              rules={{
+                required: "Publisher is required",
+                maxLength: {
+                  value: 20,
+                  message: "Publisher should be less than 20 characters",
+                },
+              }}
+            />
+            <FormInput
+              labelText="Language"
+              type="text"
+              name="language"
+              control={control}
+              errors={errors}
+              defaultValue={singlebook.language}
+              rules={{
+                required: "Language is required",
+                maxLength: {
+                  value: 20,
+                  message: "Language should be less than 20 characters",
+                },
+              }}
+            />
+
+            <FormInput
+              labelText="Pages"
+              type="number"
+              name="pages"
+              control={control}
+              errors={errors}
+              defaultValue={singlebook.pages}
+              rules={{
+                required: "Pages is required",
+                maxLength: {
+                  value: 20,
+                  message: "Pages should be less than 20 characters",
+                },
+              }}
+
+            />
+
+            <FormInput
+              labelText="Price"
+              type="number"
+              name="price"
+              control={control}
+              errors={errors}
+              defaultValue={singlebook.price}
+              rules={{
+                required: "Price is required",
+                maxLength: {
+                  value: 20,
+                  message: "Price should be less than 20 characters",
+                },
+              }}        />  
+
+            <FormInput
+              labelText="Stock"
+              type="number"
+              name="stock"
+              control={control}
+              errors={errors}
+              defaultValue={singlebook.stock}
+              rules={{
+                required: "Stock is required",
+                maxLength: {
+                  value: 20,
+                  message: "Stock should be less than 20 characters",
+                },
+              }}
+            />
+
+             {loading ? (
+                <Button type="submit" disabled={true} text={<LinearLoader />} />
+              ) : (
+                <Button type="submit" text="Update Book" />
+              )}
+
+
+
+          </form>
+        </div>
+      )}
     </div>
   );
 };

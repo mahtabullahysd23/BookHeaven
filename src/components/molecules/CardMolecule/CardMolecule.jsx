@@ -8,10 +8,14 @@ import { useDispatch } from "react-redux";
 import { openModal } from "../../../Store/Slices/modalSlice";
 import { addToCart } from "../../../Store/Slices/cartSlice";
 import customAxios from "../../../Utils/customAxios";
-import { addSingleBook } from "../../../Store/Slices/bookSlice";
+import { addAllBooks, addSingleBook } from "../../../Store/Slices/bookSlice";
 import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { BiEditAlt } from "react-icons/bi";
+import { AiOutlineDelete } from "react-icons/ai";
+import setDeletedBook from "../../../Store/Slices/bookSlice";
 
 const CardMolecule = ({
   id,
@@ -25,6 +29,8 @@ const CardMolecule = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [loadingeye, setLoadingeye] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const role = useSelector((state) => state.user.role);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,6 +64,26 @@ const CardMolecule = ({
     });
   };
 
+  const handleEdit = (event) => {
+    event.stopPropagation();
+    navigate(`/edit/${id}`);
+  };
+
+  const handleDelete = (event) => {
+    event.stopPropagation();
+    customAxios
+      .delete(`/books/delete/${id}`)
+      .then((res) => {
+        alert(res.data.message);
+        dispatch(addAllBooks(id));
+        setDeleted(!deleted);
+        navigate("/books");
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  };
+
   const handleClickSingleBookPage = (event) => {
     event.stopPropagation();
     navigate(`/books/${id}`);
@@ -67,25 +93,50 @@ const CardMolecule = ({
     <>
       <div className="card" onClick={handleClickSingleBookPage}>
         <div className="icon-button-group">
-          <div
-            className="icon-button"
-            onClick={!loadingeye ? handleClickQuickView : undefined}
-          >
-            {!loadingeye ? <FaEye /> : <RoundLoader color="whiteClass" />}
-          </div>
-          <div className="icon-button">
-            <RiHeart2Fill />
-          </div>
-          <div
-            className="icon-button"
-            onClick={!loading ? handleClickAddtoCart : undefined}
-          >
-            {!loading ? (
-              <BsFillCartPlusFill />
-            ) : (
-              <RoundLoader color="whiteClass" />
-            )}
-          </div>
+          {
+            role != "admin" ?
+            <div
+              className="icon-button"
+              onClick={!loadingeye ? handleClickQuickView : undefined}
+            >
+              {!loadingeye ?<FaEye /> : <RoundLoader color="whiteClass" />}
+            </div>:<div
+              className="icon-button"
+              onClick={!loadingeye ? handleClickQuickView : undefined}
+            >
+              {!loadingeye ?<BiEditAlt /> : <RoundLoader color="whiteClass" />}
+            </div>
+            
+          }
+          {role !== "admin" ? (
+            <div className="icon-button">
+              <RiHeart2Fill />
+            </div>
+          ) : (
+            <div
+              className="icon-button"
+              onClick={!loading ? handleDelete : undefined}
+            >
+              {!loading ? (
+                <AiOutlineDelete />
+              ) : (
+                <RoundLoader color="whiteClass" />
+              )}
+            </div>
+          )}
+
+          {role !== "admin" ? (
+            <div
+              className="icon-button"
+              onClick={!loading ? handleClickAddtoCart : undefined}
+            >
+              {!loading ? (
+                <BsFillCartPlusFill />
+              ) : (
+                <RoundLoader color="whiteClass" />
+              )}
+            </div>
+          ) : null}
         </div>
         <div className="header-card">
           <Tag text={discount} color="black" />

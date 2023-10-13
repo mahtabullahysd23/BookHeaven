@@ -3,6 +3,7 @@ import "./SingleProuctOrganism.style.scss";
 import SingleProductMolecule from "../../molecules/SingleProductMolecule/SingleProductMolecule";
 import { useSelector } from "react-redux";
 const SingleProuctOrganism = () => {
+
   const singlebook = useSelector((state) => state.book.singlebook);
   return (
     <div className="single-product-modal-container">

@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
     singlebook: null,
     allBooks: [],
-    orientation:"book-container"
+    orientation:"book-container",
+    deletedBook: null
 };
 
 const Slice = createSlice({
@@ -18,9 +20,12 @@ const Slice = createSlice({
         changeOrientation: (state, action) => {
             state.orientation = action.payload;
         },
+        setDeletedBook: (state, action) => {
+            state.deletedBook = action.payload;
+        },
     },
 });
 
-export const { addSingleBook, addAllBooks, changeOrientation } = Slice.actions;
+export const { addSingleBook, addAllBooks, changeOrientation ,setDeletedBook} = Slice.actions;
 
 export default Slice.reducer;

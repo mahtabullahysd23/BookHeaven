@@ -6,6 +6,7 @@ const useBook = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const searchQuery = useSelector((state) => state.filter.filterString);
+  const deletedBook = useSelector((state) => state.book.allBooks);
 
   const callApi = () => {
     setLoading(true);
@@ -32,7 +33,7 @@ const useBook = () => {
     } else {
       callApi();
     }
-  }, [searchQuery]);
+  }, [searchQuery,deletedBook]);
 
   return { books, loading };
 };

@@ -14,13 +14,15 @@ const BooksOrganism = () => {
     //   orientation=== "list" ? "list-container" : orientation === "grid2x" ? "grid-2x" : "book-container"
     // } 
   }, [orientation]);
+
+
   return (
     <div className={orientation}>
       {loading ? (
         <Loader />
       ) : books.books ? (
         books.books.map((book) => {
-          return (
+          return (   
             <CardMolecule
               key={book._id}
               id={book._id}

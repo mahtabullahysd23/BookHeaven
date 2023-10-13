@@ -65,7 +65,7 @@ const UserOrganism = () => {
       {loadder ? (
         <Loadder />
       ) : (
-        <div className="flex-center gap-2 p-2 form-div-user">
+        <div className=" gap-2 p-2 form-div-user">
           <div className="USER-CONTAINER">
             {users.map((user) => {
               return (

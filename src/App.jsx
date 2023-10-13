@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import jwtDecode from "jwt-decode";
 import User from "./components/templates/Users/User";
+import Transaction from "./components/templates/Transactions/Transaction";
 function App() {
   return (
     <>
@@ -40,7 +41,7 @@ function App() {
               <Route element={<AdminAuth />}>
                 <Route path="admin/books" element={<Books />} />
                 <Route path="/users" element={<User/>} />
-                <Route path="admin/orders" element={<h1>Orders</h1>} />
+                <Route path="/orders" element={<Transaction/>} />
                 <Route path="admin/discounts" element={<h1>Discounts</h1>} />
               </Route>
               <Route path="*" element={<h1>404 Not Found</h1>} />
