@@ -97,6 +97,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+
                 <div>
                   <ProfileName
                     username={user ? user.data.user.name.split(" ")[0] : ""}

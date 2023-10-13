@@ -7,6 +7,7 @@ import Button from "../../atoms/Buttons/Button";
 import customAxios from "../../../Utils/customAxios";
 import { useState } from "react";
 import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
+import { toast } from "react-toastify";
 const SignupFormMolecules = () => {
   const [loading, setLoading] = useState(false);
   const {
@@ -31,16 +32,16 @@ const SignupFormMolecules = () => {
       .post("/auth/signup", modifiedData)
       .then((res) => {
         setLoading(false);
-        alert(res.data.message);
+        toast.success(res.data.message);
         navigate("/signin");
         reset();
       })
       .catch((err) => {
         setLoading(false);
         if (err.response.status === 409) {
-          alert("Email already exists");
+          toast.error("Email already exists");
         } else {
-          alert(err.response.data.error[0].msg);
+          toast.error(err.response.data.error[0].msg);
         }
       });
   };

@@ -8,6 +8,7 @@ import { addToCart } from "../../../Store/Slices/cartSlice";
 import { useEffect } from "react";
 import { useState } from "react";
 import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
+import { toast } from "react-toastify";
 import { set } from "react-hook-form";
 
 const CartItemMolecule = ({
@@ -41,7 +42,7 @@ const CartItemMolecule = ({
           dispatch(addToCart(res.data.data));
         })
         .catch((err) => {
-          alert(err.response.message);
+          toast.error(err.response.message);
         });
     }
     if (value < quantity) {
@@ -63,7 +64,7 @@ const CartItemMolecule = ({
           }
         })
         .catch((err) => {
-          alert(err.response.message);
+          toast.error(err.response.message);
         });
     }
   };

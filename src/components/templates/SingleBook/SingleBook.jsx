@@ -17,6 +17,7 @@ import Button from "../../atoms/Buttons/Button";
 import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
 import StarRadio from "../../atoms/StarRadio/StarRadio";
 import { Controller } from "react-hook-form";
+import { toast } from "react-toastify";
 const SingleBook = () => {
   const [loading, Setloading] = useState(false);
   const [posted, Setposted] = useState(false);
@@ -24,6 +25,9 @@ const SingleBook = () => {
   const { id } = useParams();
   const singlebook = useSelector((state) => state.book.singlebook);
   const [loadingPost, SetloadingPost] = useState(false);
+  const role = useSelector((state) => state.user.role);
+const deleted = useSelector((state) => state.book.allBooks);
+
 
   const {
     handleSubmit,
@@ -35,6 +39,7 @@ const SingleBook = () => {
   });
 
   useEffect(() => {
+    console.log(id);
     Setloading(true);
     window.scrollTo(0, 0);
     customAxios
@@ -42,12 +47,13 @@ const SingleBook = () => {
       .then((res) => {
         dispatch(addSingleBook(res.data.data));
         Setloading(false);
+        console.log(res.data.data);
       })
       .catch((err) => {
         Setloading(false);
-        alert(err.response.data.message);
+        toast.error(err.response.data.message);
       });
-  }, [posted]);
+  }, [posted,deleted]);
 
   const calculateRatingCounts = (reviews) => {
     const ratingCounts = {
@@ -82,16 +88,16 @@ const SingleBook = () => {
       .post(`/reviews/post`, modifiedData)
       .then((res) => {
         SetloadingPost(false);
-        alert(res.data.message);
+        toast.success(res.data.message);
         Setposted(!posted);
         reset();
       })
       .catch((err) => {
         SetloadingPost(false);
-        if (err.response.status === 400) {
-          return alert(err.response.data.message);
+        if (err.response.status === 400 || err.response.status === 401) {
+          return toast.error(err.response.data.message);
         } else {
-          alert(err.response.data.error[0].msg);
+          toast.error(err.response.data.error[0].msg);
         }
       });
   };
@@ -181,12 +187,14 @@ const SingleBook = () => {
                     }}
                   />
                   {loadingPost ? (
+                    role!="admin" && 
                     <Button
                       type="submit"
                       disabled={true}
                       text={<LinearLoader />}
                     />
                   ) : (
+                    role!="admin" && 
                     <Button type="submit" text="Post" />
                   )}
                 </form>

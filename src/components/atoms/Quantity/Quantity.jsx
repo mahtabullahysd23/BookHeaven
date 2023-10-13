@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Quantity.style.scss";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Quantity = ({ initialValue, min, max, onChange }) => {
   const [quantity, setQuantity] = useState(initialValue);
@@ -14,7 +15,7 @@ const Quantity = ({ initialValue, min, max, onChange }) => {
       setQuantity(quantity + 1);
       onChange(quantity + 1);
     } else {
-      alert("Not Enough Stock");
+      toast.error("Not Enough Stock");
     }
   };
 
@@ -23,7 +24,7 @@ const Quantity = ({ initialValue, min, max, onChange }) => {
       setQuantity(quantity - 1);
       onChange(quantity - 1);
     } else {
-      alert("Minimum Quantity Reached");
+      toast.error("Minimum Quantity Reached");
     }
   };
 

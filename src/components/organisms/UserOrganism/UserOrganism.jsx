@@ -10,6 +10,7 @@ import Button from "../../atoms/Buttons/Button";
 import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
 import Loadder from "../../atoms/Loadder/Loadder";
 import { Controller } from "react-hook-form";
+import { toast } from "react-toastify"; 
 
 const UserOrganism = () => {
   const [users, setUsers] = useState([]);
@@ -46,7 +47,7 @@ const UserOrganism = () => {
       })
       .catch((err) => {
         setLoading(false);
-        alert(err.response.data.data);
+        toast.error(err.response.data.data);
       });
   };
 
@@ -65,7 +66,7 @@ const UserOrganism = () => {
       {loadder ? (
         <Loadder />
       ) : (
-        <div className="flex-center gap-2 p-2 form-div-user">
+        <div className= "form-div-user">
           <div className="USER-CONTAINER">
             {users.map((user) => {
               return (

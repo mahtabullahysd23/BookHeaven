@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addFilter } from "../../../Store/Slices/filterSlice";
 import { useSelector } from "react-redux";
 import { useCheckboxState } from "pretty-checkbox-react";
+import Button from "../../atoms/Buttons/Button";
 
 const FilterOptionOrganism = () => {
   const filterString = useSelector((state) => state.filter.filterString);
@@ -31,6 +32,14 @@ const FilterOptionOrganism = () => {
       dispatch(addFilter(appliedFilter));
     }
   };
+
+  const handleClear = () => {
+    dispatch(addFilter("/books?"));
+    checkboxAvailability.setState([]);
+    checkboxGenre.setState([]);
+    checkboxLanguage.setState([]);
+    checkboxTag.setState([]);
+  }
 
   const handleSearch = (searchTerm) => {
     if (searchTerm === "") {
@@ -162,6 +171,8 @@ const FilterOptionOrganism = () => {
         checked="false"
         checkbox={checkboxTag}
       />
+
+      <Button className='ash-button' text= "clear all" onClick={handleClear}/>
     </div>
   );
 };

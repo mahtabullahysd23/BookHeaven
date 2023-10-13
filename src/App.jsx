@@ -17,9 +17,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import jwtDecode from "jwt-decode";
 import User from "./components/templates/Users/User";
+import Transaction from "./components/templates/Transactions/Transaction";
+import Wallet from "./components/templates/Wallet/Wallet";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
+      <ToastContainer />
       <Router>
         <div className="app-container">
           <div className="app-nav-container">
@@ -36,11 +41,14 @@ function App() {
               <Route path="/books/:id" element={<SingleBook />} />
               <Route element={<Authenticated />}>
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/wallet" element={<Wallet/>} />
+                <Route path="/transaction" element={<Transaction/>} />
+
               </Route>
               <Route element={<AdminAuth />}>
                 <Route path="admin/books" element={<Books />} />
                 <Route path="/users" element={<User/>} />
-                <Route path="admin/orders" element={<h1>Orders</h1>} />
+                <Route path="/orders" element={<Transaction/>} />
                 <Route path="admin/discounts" element={<h1>Discounts</h1>} />
               </Route>
               <Route path="*" element={<h1>404 Not Found</h1>} />
