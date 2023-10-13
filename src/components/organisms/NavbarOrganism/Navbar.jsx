@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import ProfileName from "../../molecules/ProfileNameMolecule/ProfileNameMolecule";
 import jwtDecode from "jwt-decode";
 import RedDot from "../../atoms/CountDot/CountDot";
+import { SlPlus } from "react-icons/sl";  
+import {  SlSettings } from "react-icons/sl";  
 
 const Navbar = () => {
   const email = useSelector((state) => state.user.email);
@@ -101,6 +103,16 @@ const Navbar = () => {
                     profileImage={"/public/myimg.png"}
                   />
                 </div>
+                <li>
+                  <div className="nav-icon-div" onClick={handleClickOpenModal}>
+                    <SlPlus fontSize={"20px"}/>
+                  </div>
+                </li>
+                <li>
+                  <div className="nav-icon-div" onClick={handleClickOpenModal}>
+                    <SlSettings fontSize={"20px"}/>
+                  </div>
+                </li>
               </>
             )}
           </ul>

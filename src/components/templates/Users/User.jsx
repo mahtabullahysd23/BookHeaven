@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+
+import "./User.scss"; 
+
+import UserOrganism from "../../organisms/UserOrganism/UserOrganism";
 
 const User = () => {
-  return (
-    <div>User</div>
-  )
-}
 
-export default User
+  return (
+    <>
+      <UserOrganism/>
+    </>
+  );
+};
+
+export default User;

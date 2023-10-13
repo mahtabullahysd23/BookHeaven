@@ -16,6 +16,7 @@ import AdminAuth from "./Utils/AdminAuth";
 import { useEffect } from "react";
 import { useState } from "react";
 import jwtDecode from "jwt-decode";
+import User from "./components/templates/Users/User";
 function App() {
   return (
     <>
@@ -38,7 +39,7 @@ function App() {
               </Route>
               <Route element={<AdminAuth />}>
                 <Route path="admin/books" element={<Books />} />
-                <Route path="admin/users" element={<h1>Users</h1>} />
+                <Route path="/users" element={<User/>} />
                 <Route path="admin/orders" element={<h1>Orders</h1>} />
                 <Route path="admin/discounts" element={<h1>Discounts</h1>} />
               </Route>

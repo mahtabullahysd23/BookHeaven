@@ -10,9 +10,9 @@ const BooksOrganism = () => {
   const { books, loading } = useBook();
   const orientation = useSelector((state) => state.book.orientation);
   useEffect(() => {
-    const grid_list =()=>{
-      orientation=== "list" ? "list-container" : orientation === "grid2x" ? "grid-2x" : "book-container"
-    } 
+    // const grid_list =()=>{
+    //   orientation=== "list" ? "list-container" : orientation === "grid2x" ? "grid-2x" : "book-container"
+    // } 
   }, [orientation]);
   return (
     <div className={orientation}>
