@@ -28,18 +28,25 @@ const FilterOptionOrganism = () => {
       );
       dispatch(addFilter(appliedFilter));
     } else {
-      const appliedFilter = filterString + "PriceBetween=" + `${newRange[0]},${newRange[1]}` + "&";
+      const appliedFilter =
+        filterString + "PriceBetween=" + `${newRange[0]},${newRange[1]}` + "&";
       dispatch(addFilter(appliedFilter));
     }
   };
 
   const handleClear = () => {
-    dispatch(addFilter("/books?"));
+    const match = filterString.match(/Page=(\d+)/);
+    if (match) {
+      const page = match[1];
+      dispatch(addFilter(`/books?Page=${page}&`));
+    } else {
+      dispatch(addFilter("/books?"));
+    }
     checkboxAvailability.setState([]);
     checkboxGenre.setState([]);
     checkboxLanguage.setState([]);
     checkboxTag.setState([]);
-  }
+  };
 
   const handleSearch = (searchTerm) => {
     if (searchTerm === "") {
@@ -172,7 +179,7 @@ const FilterOptionOrganism = () => {
         checkbox={checkboxTag}
       />
 
-      <Button className='ash-button' text= "clear all" onClick={handleClear}/>
+      <Button className="ash-button mt-2" text="clear all" onClick={handleClear} />
     </div>
   );
 };

@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import ProfileName from "../../molecules/ProfileNameMolecule/ProfileNameMolecule";
 import jwtDecode from "jwt-decode";
 import RedDot from "../../atoms/CountDot/CountDot";
-import { SlPlus } from "react-icons/sl";  
-import {  SlSettings } from "react-icons/sl";  
+import { SlPlus } from "react-icons/sl";
+import { SlSettings } from "react-icons/sl";
 
 const Navbar = () => {
   const email = useSelector((state) => state.user.email);
@@ -46,7 +46,7 @@ const Navbar = () => {
             style={{
               height: "71px",
             }}
-            src="../../../../public/logo.png"
+            src="logo.png"
           ></img>
         </div>
         <div className="navbar_links_admin">
@@ -97,21 +97,20 @@ const Navbar = () => {
               </>
             ) : (
               <>
-
                 <div>
                   <ProfileName
                     username={user ? user.data.user.name.split(" ")[0] : ""}
-                    profileImage={"/public/myimg.png"}
+                    profileImage={"//myimg.png"}
                   />
                 </div>
                 <li>
                   <div className="nav-icon-div" onClick={handleClickOpenModal}>
-                    <SlPlus fontSize={"20px"}/>
+                    <SlPlus fontSize={"20px"} />
                   </div>
                 </li>
                 <li>
                   <div className="nav-icon-div" onClick={handleClickOpenModal}>
-                    <SlSettings fontSize={"20px"}/>
+                    <SlSettings fontSize={"20px"} />
                   </div>
                 </li>
               </>
@@ -125,12 +124,14 @@ const Navbar = () => {
       {" "}
       <div className="navbar">
         <div className="navbar_logo">
-          <img
-            style={{
-              height: "71px",
-            }}
-            src="../../../../public/logo.png"
-          ></img>
+          <NavLink to="/">
+            <img
+              style={{
+                height: "60px",
+              }}
+              src="/logo.png"
+            ></img>
+          </NavLink>
         </div>
         <div className="navbar_links">
           <ul>
@@ -178,7 +179,7 @@ const Navbar = () => {
                 <div>
                   <ProfileName
                     username={user ? user.data.user.name.split(" ")[0] : ""}
-                    profileImage={"/public/myimg.png"}
+                    profileImage={"/myimg.png"}
                   />
                 </div>
                 <li>

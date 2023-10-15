@@ -47,14 +47,13 @@ const CardMolecule = ({
       .then((res) => {
         setLoading(false);
         dispatch(addToCart(res.data.data));
-         toast.success(res.data.message);
+        toast.success(res.data.message);
       })
       .catch((err) => {
-        if(err.response.status === 401){
+        if (err.response.status === 401) {
           navigate("/signin");
           toast.error("Please Signin to add to cart");
-        }
-        else{
+        } else {
           toast.error(err.response.data.error[0].msg);
         }
         setLoading(false);
@@ -65,7 +64,6 @@ const CardMolecule = ({
     event.stopPropagation();
     setLoadingeye(true);
     customAxios.get(`/books/${id}`).then((res) => {
-
       dispatch(addSingleBook(res.data.data));
       dispatch(openModal("eyeModal"));
       setLoadingeye(false);
@@ -101,21 +99,21 @@ const CardMolecule = ({
     <>
       <div className="card" onClick={handleClickSingleBookPage}>
         <div className="icon-button-group">
-          {
-            role != "admin" ?
+          {role != "admin" ? (
             <div
               className="icon-button"
               onClick={!loadingeye ? handleClickQuickView : undefined}
             >
-              {!loadingeye ?<FaEye /> : <RoundLoader color="whiteClass" />}
-            </div>:<div
+              {!loadingeye ? <FaEye /> : <RoundLoader color="whiteClass" />}
+            </div>
+          ) : (
+            <div
               className="icon-button"
               onClick={!loadingeye ? handleClickQuickView : undefined}
             >
-              {!loadingeye ?<BiEditAlt /> : <RoundLoader color="whiteClass" />}
+              {!loadingeye ? <BiEditAlt /> : <RoundLoader color="whiteClass" />}
             </div>
-            
-          }
+          )}
           {role !== "admin" ? (
             <div className="icon-button">
               <RiHeart2Fill />
@@ -150,11 +148,13 @@ const CardMolecule = ({
           <Tag text={discount} color="black" />
           <Tag text={tag} color="green" />
         </div>
-        <img
+        <div className="card-image-div">
+          <img
           style={{ height: "auto" }}
           src={imgUrl ? imgUrl : "https://picsum.photos/200/300"}
           alt={name}
         />
+        </div>
         <div className="card-div">
           <h3>{name}</h3>
           <p className={stock > 0 ? "stock-class" : "stock-class-red"}>

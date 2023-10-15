@@ -205,7 +205,7 @@ const deleted = useSelector((state) => state.book.allBooks);
                 singlebook.reviews.map((review, index) => (
                   <DisplayReviewMolecule
                     key={index}
-                    userImage="/public/myimg.png"
+                    userImage="/myimg.png"
                     userName={review.user.name}
                     rating={review.rating}
                     comment={review.review}
