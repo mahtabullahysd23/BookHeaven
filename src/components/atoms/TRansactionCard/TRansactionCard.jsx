@@ -11,7 +11,7 @@ const TransactionCard = ({ name,total, email, address,onEdit,status,city}) => {
   return (
     <div className="main-card-user transaction">
       <div className="image-user">
-        <img src="/public/myimg.png"></img>
+        <img src="/myimg.png"></img>
       </div>
       <div>
         <div className="name-user">

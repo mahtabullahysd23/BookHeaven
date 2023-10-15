@@ -30,7 +30,7 @@ const AdminNavBar = () => {
             style={{
               height: "71px",
             }}
-            src="../../../../public/logo.png"
+            src="logo.png"
           ></img>
         </div>
         <div className="navbar_links_admin">
@@ -84,7 +84,7 @@ const AdminNavBar = () => {
                 <div class= "admin_img-div">
                   <ProfileName
                     username={user ? user.data.user.name.split(" ")[0] : ""}
-                    profileImage={"/public/myimg.png"}
+                    profileImage={"//myimg.png"}
                   />
                 </div>
               </>

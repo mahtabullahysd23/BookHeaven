@@ -11,7 +11,7 @@ const UserCard = ({role, name,banned, email, address,onEdit,locked}) => {
   return (
     <div className="main-card-user ">
       <div className="image-user">
-        <img src="/public/myimg.png"></img>
+        <img src="/myimg.png"></img>
       </div>
       <div>
         <div className="name-user">

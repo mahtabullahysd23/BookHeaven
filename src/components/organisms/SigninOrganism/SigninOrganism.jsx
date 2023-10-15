@@ -7,7 +7,7 @@ const SigninOrganism = () => {
         <div className="content">
           <div className="rounded-square"></div>
           <div className="img-div">
-            <img src="../../../../public/Banner.png"></img>
+            <img src="Banner.png"></img>
           </div>
         </div>
       </div>

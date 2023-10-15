@@ -43,7 +43,6 @@ function App() {
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/wallet" element={<Wallet/>} />
                 <Route path="/transaction" element={<Transaction/>} />
-
               </Route>
               <Route element={<AdminAuth />}>
                 <Route path="admin/books" element={<Books />} />
