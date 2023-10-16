@@ -1,4 +1,5 @@
-import "./SigninFormMolecules.style.scss";
+import React, { useState } from "react";
+import "./ForogtPassFormMolecule.style.scss";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Checkbox from "../../atoms/Checkbox/Checkbox";
@@ -12,10 +13,41 @@ import customAxios from "../../../Utils/customAxios";
 import useLogin from "../../../CustomHooks/useLogin";
 import RoundLoader from "../../atoms/RoundLoader/RoundLoader";
 import LinearLoader from "../../atoms/LinearLoader/LinearLoader";
+import { toast } from "react-toastify";
 
-const SigninFormMolecules = () => {
+const ForogtPassFormMolecule = () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: "onChange",
+  });
 
-  const { control,handleSubmit,errors,onSubmit,loading} = useLogin();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = (data) => {
+    setLoading(true);
+    customAxios
+      .post("/auth/forgot-password", data)
+      .then((res) => {
+        setLoading(false);
+        reset();
+        toast.success(res.data.message);
+      })
+      .catch((err) => {
+        setLoading(false);
+        if(err.response.status === 400){
+          toast.error(err.response.data.error[0].msg);
+        }
+        else{
+          toast.error(err.response.data.message);
+        }
+      });
+      reset();
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
@@ -33,23 +65,13 @@ const SigninFormMolecules = () => {
           },
         }}
       />
-      <PasswordInput control={control} errors={errors}/>
-      <div className="input-group-checkbox">
-        <div>
-          <Checkbox text="Remember me" display="flex"/>
-        </div>
-        <div>
-          <Link to="/forgot-password">
-            <p>Forgot Password?</p>
-          </Link>
-        </div>
-      </div>
-      {
-          loading ?<Button type="submit" disabled={true} text={<LinearLoader/>} />:<Button type="submit" text="Login" />
-      }
-      
+      {loading ? (
+        <Button type="submit" disabled={true} text={<LinearLoader />} />
+      ) : (
+        <Button type="submit" text="Send Email" />
+      )}
     </form>
   );
 };
 
-export default SigninFormMolecules;
+export default ForogtPassFormMolecule;

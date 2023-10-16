@@ -22,7 +22,12 @@ const PasswordInput = ({ control, errors, text,watch }) => {
         name="password"
         control={control}
         defaultValue=""
-        rules={{ required: "Password is required" }}
+        rules={{ required: "Password is required",
+        maxLength: {
+          value: 32,
+          message: "Password should be less than 32 characters",
+        },
+      }}
         render={({ field }) => (
           <>
             <div className="pass-field">

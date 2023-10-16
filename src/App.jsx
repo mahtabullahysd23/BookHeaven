@@ -21,6 +21,8 @@ import Transaction from "./components/templates/Transactions/Transaction";
 import Wallet from "./components/templates/Wallet/Wallet";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ForgotPassword from "./components/templates/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/templates/ResetPassword/ResetPassword";
 function App() {
   return (
     <>
@@ -33,6 +35,8 @@ function App() {
           <div className="app-middle-container">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password/:token/:id" element={<ResetPassword/>} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/about" element={<About />} />
