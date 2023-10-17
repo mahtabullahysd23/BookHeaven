@@ -23,6 +23,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./components/templates/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/templates/ResetPassword/ResetPassword";
+import UserProfile from "./components/templates/UserProfile/UserProfile";
 function App() {
   return (
     <>
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/wallet" element={<Wallet/>} />
                 <Route path="/transaction" element={<Transaction/>} />
+                <Route path="/user-profile" element={<UserProfile/>} />
               </Route>
               <Route element={<AdminAuth />}>
                 <Route path="admin/books" element={<Books />} />

@@ -10,7 +10,7 @@ import {
   SlSettings,
   SlLogout,
 } from "react-icons/sl";
-import { addSingleBook } from "../../../Store/Slices/bookSlice";
+
 
 const ProfileName = ({ username, profileImage }) => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const ProfileName = ({ username, profileImage }) => {
           <div className="dropdown-list">
             {role === "user" && (
               <div>
-                <div className="options flex-start gap-1">
+                <div className="options flex-start gap-1" onClick={()=>navigate('/user-profile')}>
                   <SlUser />
                   Profile
                 </div>
