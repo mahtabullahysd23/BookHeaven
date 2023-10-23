@@ -50,9 +50,13 @@ const SingleProductMolecule = ({ singlebook }) => {
         setLoadingAddtoCart(false);
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        if (err.response.status === 401) {
+          navigate("/signin");
+          toast.error("Please Signin to add to cart");
+        } else {
+          toast.error(err.response.data.error[0].msg);
+        }
         setLoadingAddtoCart(false);
-        navigate("/signin");
       });
   };
 
